@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Cloud Foundations: Core Services Demystified - My Tech Insights</title>
+    <link rel="stylesheet" href="css/blog-post-styles.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="blog-top-nav">
+        <div class="blog-nav-container">
+            <a href="index.html#blogs" class="back-btn" aria-label="Go back to blogs section">
+                <i class="fas fa-arrow-left"></i> </a>
+            <a href="index.html" class="blog-brand-logo">
+                <span class="logo-text">My Tech Insights</span>
+            </a>
+
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="blog-page-wrapper">
+        <header class="blog-hero-section">
+            <div class="blog-header-content-wrapper">
+                <span class="blog-category-tag">Cloud Computing</span>
+                <h1>AWS Cloud Foundations: Core Services Demystified</h1>
+                <p class="blog-author-date">by Santhosh Kunam · <time datetime="2025-06-01">June 01, 2025</time></p>
+            </div>
+            <div class="blog-featured-image-container">
+                <img src="images/aws.jpg" alt="AWS Cloud Foundations Featured Image" class="blog-featured-image">
+                
+            </div>
+        </header>
+
+        <main class="blog-main-layout">
+            <article class="blog-article-content">
+                <blockquote class="blog-introduction-quote">
+                    <p>"Understanding the building blocks of AWS is the first step to unlocking the full potential of cloud computing."</p>
+                </blockquote>
+
+                <p>Welcome to the foundational guide to AWS Cloud services! Amazon Web Services (AWS) is the world's most comprehensive and broadly adopted cloud platform, offering over 200 fully featured services from data centers globally. This post will demystify the core services that every cloud enthusiast and practitioner should know.</p>
+
+                <section class="blog-section" id="introduction">
+                    <h2>1. Welcome to the Cloud Kingdom - What is Cloud and why AWS?</h2>
+                    <p><b style="font-size: xx-large;">C</b>loud computing delivers on-demand computing services—from applications to storage and processing power—typically over the internet with pay-as-you-go pricing. Instead of owning your computing infrastructure, you can rent it from a cloud provider.</p>
+                    <p><b style="font-size: x-large; font-weight: bold;">AWS</b> stands out due to its vast array of services, extensive global infrastructure, high scalability, robust security measures, and a vibrant community. It provides flexibility and innovation at a lower operational cost.</p>
+                    <p><b style="font-size: larger;">Creative Hook :</b> Imagine you're a medieval merchant who's been storing goods in your tiny shop, but suddenly discovers a magical kingdom with unlimited storage warehouses, instant transportation, and pay-as-you-use pricing.</p>
+                </section>
+
+                <section class="blog-section" id="ec2">
+                    <h2>2. Amazon EC2: Virtual Servers in the Cloud</h2>
+                    <p>Amazon EC2 allows you to run virtual servers, known as *instances*, in the AWS cloud. You can choose from various instance types optimized for different workloads, including computing power, memory, and storage.</p>
+                    <h3>Key Features of EC2:</h3>
+                    <ul>
+                        <li><strong>Instance Types:</strong> Optimized for compute, memory, storage, or graphics.</li>
+                        <li><strong>Scalability:</strong> Easily scale up or down based on demand using Auto Scaling.</li>
+                        <li><strong>Operating Systems:</strong> Support for multiple OS like Linux, Windows, macOS.</li>
+                        <li><strong>Pricing Models:</strong> On-Demand, Reserved Instances, Spot Instances, Savings Plans.</li>
+                    </ul>
+                    <pre><code class="language-bash">
+# Example: Launching an EC2 instance using AWS CLI
+aws ec2 run-instances \
+    --image-id ami-0abcdef1234567890 \
+    --count 1 \
+    --instance-type t2.micro \
+    --key-name MyKeyPair \
+    --security-group-ids sg-0123456789abcdef0
+                    </code></pre>
+                    <p>EC2 is the backbone for many applications requiring persistent compute capacity, from web servers to batch processing.</p>
+                </section>
+
+                <section class="blog-section" id="s3">
+                    <h2>3. Amazon S3: Scalable Object Storage</h2>
+                    <p>Amazon S3 provides highly scalable, durable, and available object storage. It's ideal for storing and retrieving any amount of data, at any time, from anywhere on the web. S3 is not a file system, but an object store, meaning data is stored as objects within buckets.</p>
+                    <h3>Common Use Cases for S3:</h3>
+                    <ul>
+                        <li>Website hosting (static)</li>
+                        <li>Data archiving and backup</li>
+                        <li>Data lakes and big data analytics</li>
+                        <li>Content distribution</li>
+                    </ul>
+                    <p>S3 offers different storage classes (e.g., Standard, Intelligent-Tiering, Glacier) to optimize costs based on access patterns.</p>
+                </section>
+
+                <section class="blog-section" id="vpc">
+                    <h2>4. Amazon VPC: Your Private Cloud Network</h2>
+                    <p>Amazon VPC allows you to provision a logically isolated section of the AWS Cloud where you can launch AWS resources in a virtual network that you define. You have complete control over your virtual networking environment, including IP address range, subnets, route tables, and network gateways.</p>
+                    <h3>VPC Core Components:</h3>
+                    <ul>
+                        <li><strong>Subnets:</strong> Divide your VPC into logical segments (public/private).</li>
+                        <li><strong>Route Tables:</strong> Control traffic routing within your VPC and to the internet.</li>
+                        <li><strong>Internet Gateway (IGW):</strong> Enables communication between your VPC and the internet.</li>
+                        <li><strong>Network Access Control Lists (NACLs) & Security Groups:</strong> Act as firewalls for security at the subnet and instance level, respectively.</li>
+                    </ul>
+                    <p>VPC is crucial for designing secure and isolated application environments.</p>
+                </section>
+
+                <section class="blog-section" id="iam">
+                    <h2>5. AWS IAM: Secure Access Control</h2>
+                    <p>AWS IAM enables you to securely control access to AWS services and resources for your users. With IAM, you can manage who is authenticated (signed in) and authorized (has permissions) to use resources.</p>
+                    <h3>Key IAM Concepts:</h3>
+                    <ul>
+                        <li><strong>Users:</strong> Individual people or applications that interact with AWS.</li>
+                        <li><strong>Groups:</strong> Collections of IAM users.</li>
+                        <li><strong>Roles:</strong> Secure way to grant permissions to entities you trust (users, services, applications).</li>
+                        <li><strong>Policies:</strong> Documents that define permissions (what actions are allowed/denied on which resources).</li>
+                    </ul>
+                    <p>Implementing a strong IAM strategy is fundamental to maintaining security and compliance in AWS.</p>
+                </section>
+
+                <section class="blog-section" id="conclusion">
+                    <h2>6. Conclusion & Next Steps</h2>
+                    <p>These five services—EC2, S3, VPC, and IAM—form the bedrock of most AWS architectures. Mastering them provides a strong foundation for building, deploying, and managing scalable and secure applications in the cloud.</p>
+                    <p>I encourage you to explore the AWS Free Tier, experiment with these services, and dive deeper into specific use cases. Happy cloud journey!</p>
+                </section>
+
+            </article>
+
+            <aside class="blog-sidebar">
+                <nav class="blog-table-of-contents">
+                    <h3>Table of Contents</h3>
+                    <ul>
+                        <li><a href="#introduction">What is Cloud Computing & Why AWS?</a></li>
+                        <li><a href="#ec2">Amazon EC2: Virtual Servers in the Cloud</a></li>
+                        <li><a href="#s3">Amazon S3: Scalable Object Storage</a></li>
+                        <li><a href="#vpc">Amazon VPC: Your Private Cloud Network</a></li>
+                        <li><a href="#iam">AWS IAM: Secure Access Control</a></li>
+                        <li><a href="#conclusion">Conclusion & Next Steps</a></li>
+                    </ul>
+                </nav>
+                <div class="sidebar-widget related-posts">
+                    <h3>Explore More Tech Insights</h3>
+                    <ul>
+                        <li><a href="blog-flexbox.html">Mastering Responsive Design with Flexbox</a></li>
+                        <li><a href="blog-tensorflowjs.html">Getting Started with TensorFlow.js</a></li>
+                    </ul>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <footer class="blog-page-bottom-footer">
+        <div class="blog-footer-content">
+            <p>&copy; 2025 My Tech Insights. All rights reserved.</p>
+            
+        </div>
+    </footer>
+
+    <script>
+        
+        
+        // Smooth scrolling for table of contents
+        document.querySelectorAll('.blog-table-of-contents a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Optional: Active link highlighting for TOC based on scroll position
+        const sections = document.querySelectorAll('.blog-section');
+        const navLinks = document.querySelectorAll('.blog-table-of-contents a');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 120; // Adjust offset for sticky header
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // --- Dark Mode JavaScript ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+        const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
+
+        // Function to set the theme
+        function setTheme(isDark) {
+            if (isDark) {
+                body.classList.add('dark-mode');
+                themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark-mode');
+                themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Check for saved theme preference or system preference on load
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme === 'dark');
+        } else if (prefersDarkMode.matches) {
+            setTheme(true);
+        } else {
+            setTheme(false);
+        }
+
+        // Toggle theme on button click
+        themeToggleBtn.addEventListener('click', () => {
+            setTheme(!body.classList.contains('dark-mode'));
+        });
+
+        // Listen for system theme changes
+        prefersDarkMode.addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                setTheme(e.matches);
+            }
+        });
+    
+    
+    </script>
+</body>
+</html>

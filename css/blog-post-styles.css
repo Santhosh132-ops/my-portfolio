@@ -1,0 +1,696 @@
+/* Basic Resets & Typography */
+:root {
+    /* Light Mode Colors - Defined using CSS variables for easy theming */
+    --primary-text-color: #2c3e50; /* Dark blue/grey for main headings and strong text */
+    --secondary-text-color: #555; /* Medium grey for body text */
+    --accent-color: #4a90e2; /* Blue for links, highlights, etc. */
+    --light-grey-bg: #f8fafd; /* Very light background for the whole page */
+    --border-color: #e0e0e0; /* Light grey for borders and dividers */
+    --yellow-accent: #fcd900; /* For those geometric shapes and button accent (no longer used for doodles) */
+    --dark-blue: #334e68; /* A darker blue, specifically for the custom blog brand name in nav and footer */
+    --gradient-start: #FF6B6B; /* Reddish for button gradient */
+    --gradient-end: #FFB643; /* Orangish for button gradient */
+    --white: #ffffff; /* General white color for elements that are white in light mode */
+    --card-bg: #ffffff; /* Background for cards, main content wrapper, sidebars, nav */
+    --shadow-color: rgba(0, 0, 0, 0.08); /* General shadow color */
+    --nav-shadow: rgba(0, 0, 0, 0.05); /* Nav specific shadow */
+    --code-bg: #2d2d2d; /* Background for code blocks */
+    --code-text: #f8f8f2; /* Text color for code blocks */
+    --inline-code-bg: rgba(220, 220, 220, 0.5); /* Background for inline code */
+    --inline-code-text: #c7254e; /* Text color for inline code */
+    --quote-bg: #ffebeb; /* Background for blockquotes */
+    --quote-border: #ff6b6b; /* Border for blockquotes */
+    --category-tag-bg: #e6f0fa; /* Background for category tags */
+    --category-tag-text: var(--accent-color); /* Text color for category tags */
+}
+
+/* Dark Mode Colors - These variables override the light mode ones when 'dark-mode' class is applied */
+body.dark-mode {
+    --primary-text-color: #ecf0f1; /* Lighter text for headings and strong text */
+    --secondary-text-color: #bdc3c7; /* Lighter text for body content */
+    --accent-color: #6aabf7; /* Brighter blue for links and highlights */
+    --light-grey-bg: #1a1a2e; /* Darker overall background */
+    --border-color: #34495e; /* Darker borders */
+    --yellow-accent: #ffd700; /* Bright yellow for shapes in dark mode (no longer used for doodles) */
+    --dark-blue: #222831; /* Even darker blue for specific elements like footer/logo text */
+    --gradient-start: #e74c3c; /* Darker red for button gradient */
+    --gradient-end: #f39c12; /* Darker orange for button gradient */
+    --white: #222831; /* Dark background for elements that were white */
+    --card-bg: #2d3142; /* Darker background for cards, main content wrapper, sidebars, nav */
+    --shadow-color: rgba(0, 0, 0, 0.3); /* Darker shadows */
+    --nav-shadow: rgba(0, 0, 0, 0.2); /* Darker nav shadow */
+    --code-bg: #1e1e1e; /* Even darker code background */
+    --code-text: #d4d4d4; /* Lighter text color for code blocks */
+    --inline-code-bg: rgba(70, 70, 70, 0.5); /* Darker background for inline code */
+    --inline-code-text: #e74c3c; /* Reddish inline code text */
+    --quote-bg: #2d3142; /* Darker background for blockquotes */
+    --quote-border: #e74c3c; /* Red border for blockquotes */
+    --category-tag-bg: #293a4b; /* Darker background for category tags */
+    --category-tag-text: #6aabf7; /* Lighter text color for category tags */
+}
+
+/* Base styles for the entire page - using variables for colors */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif; /* Your preferred body font */
+    line-height: 1.7; /* Good readability */
+    color: var(--secondary-text-color);
+    background-color: var(--light-grey-bg);
+    -webkit-font-smoothing: antialiased; /* Smoother font rendering */
+    -moz-osx-font-smoothing: grayscale; /* Smoother font rendering */
+    /* Smooth transition for theme change */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Generic container for content centering, if needed outside blog-page-wrapper */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Heading styles - using variables for colors and adding transition */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif; /* Your preferred heading font */
+    color: var(--primary-text-color);
+    line-height: 1.3;
+    margin-bottom: 0.8em;
+    transition: color 0.3s ease; /* Smooth transition for heading color */
+}
+
+h1 { font-size: 3.5em; font-weight: 700; }
+h2 { font-size: 2.2em; font-weight: 600; }
+h3 { font-size: 1.6em; font-weight: 600; }
+p { margin-bottom: 1em; } /* Default paragraph spacing */
+
+/* Link styles - using variables for colors and adding transition */
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color 0.3s ease; /* Smooth transition for link color */
+}
+
+a:hover {
+    color: var(--dark-blue); /* Darker blue on hover */
+}
+
+/* --- Top Navigation --- */
+.blog-top-nav {
+    background-color: var(--card-bg); /* Uses card background variable for nav */
+    padding: 15px 0;
+    box-shadow: 0 2px 10px var(--nav-shadow); /* Uses nav shadow variable */
+    position: sticky; /* Keeps nav visible on scroll */
+    top: 20px; /* Adjusted to create space for the floating effect */
+    z-index: 1000; /* Ensures it's always on top */
+    /* Smooth transition for nav background and shadow */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, top 0.3s ease;
+
+    /* --- NEW STYLES FOR CENTERED & ROUNDED NAV --- */
+    max-width: 800px; /* Set a max-width for the nav bar */
+    margin: 20px auto; /* Center the nav bar horizontally */
+    border-radius: 50px; /* Creates rounded ends (half of padding-top + padding-bottom + content height) */
+    /* Ensure no padding on the .blog-top-nav itself, move it to .blog-nav-container */
+    padding: 0; /* Remove padding from here to correctly round the ends */
+    /* Adjust box-shadow for a more "floating" effect if desired */
+    box-shadow: 0 5px 15px var(--nav-shadow);
+}
+
+.blog-nav-container {
+    max-width: 100%; /* Now takes full width of its parent (.blog-top-nav) */
+    margin: 0 auto;
+    /* --- NEW STYLES --- */
+    padding: 15px 30px; /* Apply the padding here instead of .blog-top-nav */
+    display: flex;
+    justify-content: space-between; /* Distributes items to ends with space between */
+    align-items: center;
+}
+
+/* Back Button Styling */
+.back-btn {
+    background: none;
+    border: none;
+    color: var(--primary-text-color); /* Icon color */
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: color 0.3s ease;
+    outline: none; /* Remove focus outline */
+}
+
+.back-btn:hover {
+    color: var(--accent-color);
+}
+
+.blog-brand-logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.8em;
+    font-weight: 700;
+    flex-grow: 1; /* Allows the logo to take available space */
+    text-align: center; /* Center the text within its flex container */
+    justify-content: center; /* Horizontally center content if it's a flex item */
+    /* Remove the negative margin as space-between should work better now */
+    margin-left: 0;
+}
+
+/* Specific styling for the blog brand name text */
+.blog-brand-logo .logo-text {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--dark-blue); /* Distinct color for your blog name in light mode */
+}
+
+/* Override logo text color for dark mode to ensure readability */
+body.dark-mode .blog-brand-logo .logo-text {
+    color: var(--primary-text-color); /* Lighter color for logo text in dark mode */
+}
+
+/* Theme Toggle Button Styling */
+.theme-toggle-btn {
+    background: none;
+    border: none;
+    color: var(--primary-text-color); /* Icon color */
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.3s ease;
+    outline: none; /* Remove focus outline */
+}
+
+.theme-toggle-btn:hover {
+    color: var(--accent-color);
+}
+
+
+/* --- Blog Page Wrapper (Main container for the article) --- */
+.blog-page-wrapper {
+    max-width: 1200px; /* Overall width of the content area */
+    margin: 40px auto; /* Centered with top/bottom margin */
+    background-color: var(--card-bg); /* Uses card background variable */
+    border-radius: 10px;
+    box-shadow: 0 10px 40px var(--shadow-color); /* Uses shadow variable */
+    overflow: hidden; /* Important for containing image translate effect */
+    /* Smooth transition for background and shadow */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* --- Hero Section (Header with Title, Meta, and Featured Image) --- */
+.blog-hero-section {
+    position: relative;
+    padding-bottom: 120px; /* Creates space for the featured image to overlap */
+    background-color: var(--card-bg); /* Uses card background variable */
+    text-align: center;
+    border-bottom: 1px solid var(--border-color); /* Subtle separation line */
+    /* Smooth transition for background and border color */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.blog-header-content-wrapper {
+    max-width: 900px; /* Limits the width of the text content within the header */
+    margin: 0 auto;
+    padding: 60px 40px 0; /* Top, side, bottom padding */
+}
+
+.blog-category-tag {
+    display: inline-block;
+    background-color: var(--category-tag-bg); /* Uses category tag background variable */
+    color: var(--category-tag-text); /* Uses category tag text variable */
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9em;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 20px; /* Pill shape */
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    /* Smooth transition for background and color */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.blog-hero-section h1 {
+    font-size: 3.5em;
+    font-weight: 700;
+    margin-bottom: 20px;
+    max-width: 800px; /* Limits title width for readability */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.blog-author-date {
+    font-size: 1.05em;
+    color: var(--secondary-text-color); /* Uses secondary text color for meta info */
+    margin-bottom: 40px;
+}
+
+.blog-featured-image-container {
+    position: relative;
+    width: 100%;
+    max-width: 1000px; /* Max width for the image */
+    margin: 0 auto; /* Center the image */
+    transform: translateY(60px); /* Lifts the image up to overlap the header section */
+    z-index: 5; /* Ensures the image is above other elements */
+    box-shadow: 0 15px 40px var(--shadow-color); /* Uses shadow variable */
+    border-radius: 10px;
+    overflow: hidden; /* Ensures corner rounding for the image */
+    transition: box-shadow 0.3s ease; /* Smooth transition for image shadow */
+}
+
+.blog-featured-image {
+    width: 100%;
+    height: 500px; /* Fixed height for consistency, adjust as needed */
+    object-fit: cover; /* Crops image to fit the container without distortion */
+    display: block; /* Removes extra space below image */
+}
+
+/* Image overlay shapes container - kept for potential future use or other overlays */
+.image-overlay-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allows clicks to pass through to the image */
+    overflow: hidden; /* Ensures shapes don't extend beyond container */
+    /* All previous doodle styles are removed from here */
+}
+
+/* --- Main Layout (Content + Sidebar) --- */
+.blog-main-layout {
+    display: flex; /* Uses Flexbox for side-by-side layout */
+    justify-content: space-between;
+    align-items: flex-start; /* Aligns content to the top */
+    padding: 80px 60px; /* Padding around the main content area */
+}
+
+.blog-article-content {
+    flex: 1; /* Allows the article content to grow and take available space */
+    max-width: 750px; /* Limits article width for optimal readability */
+    margin-right: 60px; /* Space between the article and the sidebar */
+}
+
+/* Introduction Quote style (from example image) - using variables */
+.blog-introduction-quote {
+    border-left: 4px solid var(--accent-color); /* Blue accent border */
+    padding-left: 25px;
+    margin: 2em 0; /* Vertical spacing */
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.6em;
+    font-style: normal; /* Ensures it's not italic by default blockquote style */
+    font-weight: 500;
+    color: var(--primary-text-color); /* Uses primary text color */
+    line-height: 1.4;
+    /* Smooth transition for border and text color */
+    transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.blog-introduction-quote p {
+    margin: 0; /* Removes default paragraph margin within the quote */
+}
+
+/* Article Sections */
+.blog-section {
+    margin-bottom: 3em; /* Space between major sections */
+}
+
+.blog-section h2 {
+    font-size: 2em;
+    margin-top: 2em; /* More space above new H2 sections */
+    margin-bottom: 1em;
+}
+
+.blog-section h3 {
+    font-size: 1.4em;
+    margin-top: 1.5em; /* More space above new H3 subsections */
+    margin-bottom: 0.8em;
+    color: var(--accent-color); /* Accent color for subheadings */
+    transition: color 0.3s ease; /* Smooth transition for sub-heading color */
+}
+
+.blog-section ul, .blog-section ol {
+    margin-left: 25px; /* Indent lists */
+    margin-bottom: 1em;
+    list-style-position: outside;
+}
+
+.blog-section li {
+    margin-bottom: 0.5em;
+}
+
+/* Code blocks (for syntax highlighting) - using variables */
+pre {
+    background-color: var(--code-bg); /* Dark background for code */
+    color: var(--code-text); /* Light text color for code */
+    padding: 20px;
+    border-radius: 8px;
+    overflow-x: auto; /* Enables horizontal scrolling for long code lines */
+    margin: 30px 0; /* Spacing above/below code blocks */
+    font-family: 'Fira Code', 'Roboto Mono', monospace; /* Monospace font for code */
+    font-size: 0.9em;
+    line-height: 1.6;
+    /* Smooth transition for background and text color */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+code {
+    font-family: 'Fira Code', 'Roboto Mono', monospace;
+    background-color: var(--inline-code-bg); /* Light grey background for inline code */
+    color: var(--inline-code-text); /* Distinct color for inline code */
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    /* Smooth transition for background and text color */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Inline images within content */
+.blog-article-content img {
+    max-width: 100%;
+    height: auto;
+    display: block; /* Ensures image is on its own line and can be centered */
+    margin: 30px auto; /* Center the image */
+    border-radius: 8px;
+    box-shadow: 0 5px 15px var(--shadow-color); /* Uses shadow variable */
+    transition: box-shadow 0.3s ease; /* Smooth transition for image shadow */
+}
+
+
+/* --- Sidebar (Table of Contents and other widgets) --- */
+.blog-sidebar {
+    width: 280px; /* Fixed width for the sidebar */
+    position: sticky; /* Makes it stick as the user scrolls */
+    top: 100px; /* Adjust based on the height of your fixed top navigation */
+    padding-top: 20px;
+}
+
+.blog-table-of-contents {
+    background-color: var(--card-bg); /* Uses card background variable */
+    border: 1px solid var(--border-color); /* Uses border color variable */
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 20px var(--shadow-color); /* Uses shadow variable */
+    /* Smooth transition for background, border, and shadow */
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-table-of-contents h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.4em;
+    font-weight: 700;
+    color: var(--primary-text-color); /* Uses primary text color */
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border-color); /* Separator line */
+    padding-bottom: 10px;
+    /* Smooth transition for color and border */
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.blog-table-of-contents ul {
+    list-style: none; /* Remove default list bullets */
+    padding: 0;
+    margin: 0;
+}
+
+.blog-table-of-contents li {
+    margin-bottom: 10px;
+}
+
+.blog-table-of-contents a {
+    font-family: 'Poppins', sans-serif;
+    color: var(--secondary-text-color); /* Uses secondary text color */
+    font-size: 0.95em;
+    display: block; /* Makes the entire list item clickable */
+    padding: 5px 0;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.blog-table-of-contents a:hover {
+    color: var(--accent-color);
+    transform: translateX(5px); /* Slight indent on hover */
+}
+
+/* Active link in TOC (applied via JavaScript) */
+.blog-table-of-contents a.active {
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+/* Sidebar widgets (e.g., Related Posts) - using variables */
+.sidebar-widget {
+    background-color: var(--card-bg); /* Uses card background variable */
+    border: 1px solid var(--border-color); /* Uses border color variable */
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 5px 20px var(--shadow-color); /* Uses shadow variable */
+    /* Smooth transition for background, border, and shadow */
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sidebar-widget h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.4em;
+    font-weight: 700;
+    color: var(--primary-text-color); /* Uses primary text color */
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+    /* Smooth transition for color and border */
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.sidebar-widget ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-widget li {
+    margin-bottom: 10px;
+}
+
+.sidebar-widget a {
+    font-family: 'Poppins', sans-serif;
+    color: var(--secondary-text-color); /* Uses secondary text color */
+    font-size: 0.95em;
+    display: block;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+.sidebar-widget a:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+
+/* --- Blog Page Footer --- */
+.blog-page-bottom-footer {
+    background-color: var(--light-grey-bg); /* Uses dark blue variable */
+    color: var(--secondary-text-color); /* Uses secondary text color */
+    padding: 40px 0;
+    text-align: center;
+    font-size: 0.9em;
+    /* Smooth transition for background and text color */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.blog-footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.blog-footer-content p {
+    margin-bottom: 15px;
+}
+
+.blog-footer-links a {
+    color: var(--secondary-text-color); /* Uses secondary text color */
+    margin: 0 15px;
+    text-decoration: underline; /* Standard underline for footer links */
+    transition: color 0.3s ease;
+}
+
+.blog-footer-links a:hover {
+    color: var(--accent-color);
+}
+
+
+/* --- Responsive Design for Blog Post Page --- */
+@media (max-width: 1200px) {
+    .blog-page-wrapper {
+        margin: 20px; /* Reduce side margins for smaller screens */
+    }
+    /* Adjusted .blog-top-nav for smaller screens, if it's too wide */
+    .blog-top-nav {
+        max-width: 700px; /* Adjust max-width for slightly smaller screens */
+    }
+    .blog-nav-container {
+        padding: 15px 20px; /* Adjust nav padding */
+    }
+    .blog-hero-section h1 {
+        font-size: 3em; /* Slightly smaller heading */
+    }
+    .blog-featured-image {
+        height: 450px; /* Reduce image height */
+    }
+    .blog-main-layout {
+        padding: 60px 40px; /* Adjust main layout padding */
+    }
+}
+
+@media (max-width: 992px) {
+    .blog-nav-container {
+        justify-content: space-between;
+    }
+    .blog-brand-logo {
+        margin-left: 0; /* Reset margin as it's no longer needed for centering on small screens */
+    }
+    /* --- NEW STYLES for responsive nav --- */
+    .blog-top-nav {
+        top: 10px; /* Adjust sticky top position */
+        border-radius: 40px; /* Adjust border-radius */
+        max-width: calc(100% - 40px); /* Max-width, keeping some margin from edges */
+        margin: 10px auto; /* Adjust margin */
+    }
+    .blog-nav-container {
+        padding: 10px 20px; /* Slightly less padding for smaller height */
+    }
+
+    .blog-hero-section h1 {
+        font-size: 2.5em;
+        margin-bottom: 15px;
+    }
+    .blog-featured-image {
+        height: 380px;
+        transform: translateY(40px); /* Adjust image lift */
+    }
+    .blog-main-layout {
+        flex-direction: column; /* Stacks content and sidebar vertically */
+        padding: 50px 30px;
+    }
+    .blog-article-content {
+        max-width: 100%; /* Article takes full width when stacked */
+        margin-right: 0; /* Remove right margin */
+        margin-bottom: 50px; /* Add space below article before sidebar */
+    }
+    .blog-sidebar {
+        width: 100%;
+        position: static; /* Remove sticky behavior when stacked */
+        top: auto;
+        padding-top: 0;
+    }
+    .blog-table-of-contents {
+        padding: 20px;
+    }
+    .blog-introduction-quote {
+        font-size: 1.4em;
+    }
+    .blog-section h2 {
+        font-size: 2em;
+    }
+    .blog-section h3 {
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 768px) {
+    .blog-page-wrapper {
+        margin: 0; /* No side margins on very small screens */
+        border-radius: 0; /* Remove border-radius */
+        box-shadow: none; /* Remove shadow for a full-width look */
+    }
+    /* --- NEW STYLES for very small screen nav --- */
+    .blog-top-nav {
+        top: 0; /* Sticky to very top */
+        border-radius: 0; /* Remove rounded ends for full width */
+        max-width: 100%; /* Full width */
+        margin: 0; /* No external margins */
+        padding: 10px 0; /* Padding inside the nav */
+    }
+    .blog-nav-container {
+        padding: 10px 15px; /* Adjust padding */
+    }
+    .blog-brand-logo .logo-text {
+        font-size: 1.4em; /* Smaller logo text */
+    }
+    .back-btn, .theme-toggle-btn {
+        font-size: 1em; /* Smaller icons */
+        padding: 5px; /* Adjust padding */
+    }
+    /* END NEW STYLES */
+
+    .blog-hero-section {
+        padding-bottom: 80px;
+    }
+    .blog-hero-section h1 {
+        font-size: 2em;
+    }
+    .blog-author-date {
+        font-size: 0.9em;
+    }
+    .blog-featured-image-container {
+        transform: translateY(30px);
+    }
+    .blog-featured-image {
+        height: 300px;
+    }
+    .blog-main-layout {
+        padding: 30px 20px;
+    }
+    .blog-introduction-quote {
+        font-size: 1.2em;
+        padding-left: 20px;
+    }
+    .blog-section h2 {
+        font-size: 1.8em;
+    }
+    .blog-section h3 {
+        font-size: 1.3em;
+    }
+    .blog-section p, .blog-section ul, .blog-section ol {
+        font-size: 0.95em;
+    }
+    pre {
+        padding: 15px;
+        font-size: 0.85em;
+    }
+    .blog-table-of-contents h3 {
+        font-size: 1.2em;
+    }
+    .blog-table-of-contents a {
+        font-size: 0.9em;
+    }
+    .blog-page-bottom-footer {
+        padding: 30px 15px;
+    }
+    .blog-footer-links a {
+        margin: 0 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .blog-hero-section h1 {
+        font-size: 1.7em;
+        padding: 0 10px;
+    }
+    .blog-category-tag {
+        font-size: 0.8em;
+        padding: 6px 12px;
+    }
+    .blog-featured-image {
+        height: 200px;
+    }
+    .blog-main-layout {
+        padding: 20px 15px;
+    }
+    .blog-introduction-quote {
+        font-size: 1.1em;
+        padding-left: 15px;
+    }
+    .blog-section h2 {
+        font-size: 1.5em;
+    }
+    .blog-section h3 {
+        font-size: 1.2em;
+    }
+}
