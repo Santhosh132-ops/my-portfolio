@@ -24,7 +24,7 @@ body {
     width: 100%;
     position: relative; /* For positioning child elements */
     overflow: hidden; /* Hide anything that goes beyond this container */
-    background-color: #ffffff; /* Use white background as per original design */
+    background-color: #a5abaf; /* Use white background as per original design */
 }
 
 /* Top Header - Contains "Portfolio" and the new navigation */
@@ -56,7 +56,7 @@ body {
 .top-left-branding p {
     font-size: 1.1em;
     font-weight: 500;
-    color: #555;
+    color: #070707;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
@@ -121,7 +121,7 @@ body {
     font-family: 'Montserrat', sans-serif;
     font-size: 5em; /* Large font size */
     font-weight: 700;
-    color: #2c3e50; /* Darker text */
+    color: #16181a; /* Darker text */
     line-height: 1.1; /* Adjust line height for close lines */
     margin-bottom: 10px;
     letter-spacing: -2px; /* Slightly condensed */
@@ -131,7 +131,7 @@ body {
 .hero-profession {
     font-family: 'Poppins', sans-serif;
     font-size: 1.2em;
-    color: #555;
+    color: #343131;
     margin-bottom: 40px; /* Space before buttons */
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -173,7 +173,7 @@ body {
 }
 
 .hero-social-icons a {
-    color: #888; /* Muted icon color */
+    color: #545353; /* Muted icon color */
     font-size: 1.5em;
     transition: color 0.3s ease, transform 0.2s ease;
     z-index: 2; /* Ensure social links are on top of everything including hello */
@@ -192,7 +192,7 @@ body {
     font-family: 'Montserrat', sans-serif;
     font-size: 10em; /* Very large */
     font-weight: 700;
-    color: rgba(0, 0, 0, 0.05); /* Very faded black */
+    color: rgba(0.5,0.5,0.5,0.5);
     z-index: 0; /* Send it behind everything else */
     pointer-events: none; /* Make it unclickable */
     white-space: nowrap; /* Prevent wrapping */
@@ -468,7 +468,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #ffffff;
+    background-color: #a0aeb8;
     box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.03);
     text-align: left;
     position: relative;
@@ -495,7 +495,7 @@ body {
     font-family: 'Montserrat', sans-serif;
     font-size: 3.5em;
     font-weight: 700;
-    color: #2c3e50;
+    color: #080808;
     margin-bottom: 25px;
     position: relative;
     display: inline-block;
@@ -514,7 +514,7 @@ body {
 .about-left-text p {
     font-family: 'Poppins', sans-serif;
     font-size: 1.1em;
-    color: #555;
+    color: #0a0909;
     line-height: 1.8;
     margin-bottom: 20px;
 }
@@ -762,7 +762,7 @@ body {
     justify-content: center;
     align-items: flex-start;
     min-height: 100vh;
-    background-color: #ffffff;
+     background-color: #a0aeb8;
     box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.03);
     position: relative;
     z-index: 1;
@@ -783,13 +783,14 @@ body {
     flex: 1;
     max-width: 50%;
     padding-top: 20px;
+    
 }
 
 .contact-section h2 {
     font-family: 'Montserrat', sans-serif;
     font-size: 3.5em;
     font-weight: 700;
-    color: #2c3e50;
+    color: #0a0a0a;
     margin-bottom: 10px;
     line-height: 1.1;
     letter-spacing: -1px;
@@ -802,7 +803,7 @@ body {
 .contact-section .subtitle {
     font-family: 'Poppins', sans-serif;
     font-size: 1.1em;
-    color: #666;
+    color: #080707;
     margin-bottom: 40px;
     line-height: 1.6;
 }
@@ -829,7 +830,7 @@ body {
 .contact-form label {
     font-family: 'Poppins', sans-serif;
     font-size: 0.9em;
-    color: #4a90e2;
+    color: #070708;
     margin-bottom: 8px;
     font-weight: 600;
     text-transform: uppercase;
@@ -843,9 +844,9 @@ body {
     font-size: 1em;
     padding: 10px 0;
     border: none;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 2px solid #0d0c0c;
     background-color: transparent;
-    color: #333;
+    color: #0a0a0a;
     transition: border-bottom-color 0.3s ease;
     outline: none;
     border-radius: 0;
@@ -855,7 +856,7 @@ body {
 .contact-form input[type="email"]:focus,
 .contact-form select:focus,
 .contact-form textarea:focus {
-    border-bottom-color: #4a90e2;
+    border-bottom-color: #070707;
 }
 
 .contact-form select {
@@ -882,7 +883,7 @@ body {
 .contact-form .checkbox-group input[type="checkbox"] {
     width: 18px;
     height: 18px;
-    border: 2px solid #4a90e2;
+    border: 2px solid #070707;
     border-radius: 4px;
     appearance: none;
     -webkit-appearance: none;
@@ -902,21 +903,21 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #fff;
+    color: #0b0b0b;
     font-size: 14px;
 }
 
 .contact-form .checkbox-group label {
     font-weight: 400;
     font-size: 1em;
-    color: #555;
+    color: #060505;
     text-transform: none;
     margin-bottom: 0;
 }
 
 .send-message-btn {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(45deg, #FF6B6B 0%, #FFB643 100%);
+    background: linear-gradient(45deg, #6fd3ff, #85e0ff);
     color: #fff;
     border: none;
     border-radius: 30px;
@@ -1082,7 +1083,7 @@ body {
     align-items: center;
     font-family: 'Poppins', sans-serif;
     font-size: 0.9em;
-    color: #888;
+    color: #090909;
 }
 
 /* Responsive Adjustments for Contact Section */
@@ -1247,13 +1248,13 @@ body {
 /* Blogs Section (no change here unless you want to adjust padding/margin) */
 .blogs-section {
     padding: 100px 80px;
-    background-color: #f8fafd;
+    background-color: #1968e6;
     text-align: center;
     position: relative;
     overflow: hidden; /* CRUCIAL: Hides the content that's not in view */
 
     /* Optional: Subtle background gradient animation for the section itself */
-    background-image: linear-gradient(135deg, #e6f0fa 0%, #f0f4f7 50%, #e6f0fa 100%);
+    background-image: linear-gradient(135deg, #f5f5f5 0%, #f0f4f7 50%, #e6f0fa 100%);
     background-size: 200% 200%;
     animation: slideBackground 40s linear infinite alternate;
 }
@@ -1294,17 +1295,17 @@ body {
     /* ----- RE-ACTIVATING THE FADE EFFECT ----- */
     /* This creates the gradient mask that makes cards fade in/out */
     mask-image: linear-gradient(to right,
-        transparent 15%,    /* Start fully transparent at the very left edge */
-        rgb(8, 8, 8) 30%,         /* Become fully opaque at 10% from the left */
+        transparent 5%,    /* Start fully transparent at the very left edge */
+        rgb(8, 8, 8) 0%,         /* Become fully opaque at 10% from the left */
         black 90%,         /* Remain fully opaque until 90% from the left */
-        transparent 100%   /* Fade back to transparent at the very right edge */
+        transparent 0%   /* Fade back to transparent at the very right edge */
     );
     /* For Webkit browsers (Chrome, Safari, older Edge) */
     -webkit-mask-image: linear-gradient(to right,
-        transparent 15%,
-        rgb(8, 8, 8) 30%,
+        transparent 5%,
+        rgb(8, 8, 8) 0%,
         black 90%,
-        transparent 100%
+        transparent 0%
     );
     /* Ensure no animation is directly on this container, it's on .blogs-carousel-inner */
 }
@@ -1331,7 +1332,7 @@ body {
 .blog-post-card {
     flex-shrink: 0; /* Important: Prevent cards from shrinking */
     width: 380px; /* FIXED WIDTH IS CRUCIAL FOR CONSISTENT MEASUREMENT */
-    background-color: #ffffff;
+    background-color: #a0aeb8;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
@@ -1367,17 +1368,18 @@ body {
     font-family: 'Poppins', sans-serif;
     font-size: 0.8em;
     font-weight: 600;
-    padding: 6px 12px;
+    padding: 6px 5px;
     border-radius: 20px;
     margin-bottom: 15px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    
 }
 
 .blog-post-content h3 {
     font-family: 'Montserrat', sans-serif;
     font-size: 1.5em;
-    color: #2c3e50;
+    color: #090909;
     margin-bottom: 10px;
     line-height: 1.4;
     font-weight: 600;
@@ -1386,7 +1388,7 @@ body {
 .blog-post-content p {
     font-family: 'Poppins', sans-serif;
     font-size: 0.95em;
-    color: #555;
+    color: #090909;
     line-height: 1.7;
     margin-bottom: 20px;
     flex-grow: 1;
@@ -1394,7 +1396,7 @@ body {
 
 .read-more-link {
     font-family: 'Poppins', sans-serif;
-    color: #4a90e2;
+    color: #050505;
     text-decoration: none;
     font-weight: 600;
     font-size: 0.95em;
@@ -1588,4 +1590,647 @@ body {
  margin-bottom: 15px;
  transition: color 0.4s ease;
 }
+/* Define CSS Variables (ensure these are at the :root or accessible scope) */
+:root {
+    --path-stroke-color: #1e1717; /* Light blue/teal for the main path */
+    --orb-glow-color: transparent; /* Bright blue for the orb's core glow */
+}
 
+/* --- Skills Section Styling --- */
+#skills-section {
+    text-align: center;
+    padding: 80px 20px;
+    background-color: #a0aeb8;
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.03);
+}
+
+#skills-section h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3em;
+    margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
+    color: #0b0b0b;
+}
+
+#skills-section h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -10px;
+    width: 60px;
+    height: 4px;
+    background-color: #4a90e2;
+    border-radius: 2px;
+}
+
+#skills-section .subtitle {
+    font-size: 1.1em;
+    margin-bottom: 40px;
+    max-width: 800px;
+    color: #292626;
+}
+
+.skills-content-wrapper {
+    position: relative;
+    width: 90%;
+    max-width: 1000px;
+    aspect-ratio: 1000 / 600; /* Important for scaling the SVG and absolute positions */
+    margin: 0 auto;
+    border: none;
+    border-radius: 15px;
+    background-color: transparent;
+    box-shadow: transparent;
+}
+
+#skill-path-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allows interaction with elements below */
+    z-index: 1; /* Behind orb and boxes */
+}
+
+#animationPath {
+    fill: none;
+    stroke: var(--path-stroke-color);
+    stroke-width: 3px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+#movingDotPath {
+    fill: none;
+    stroke: var(--orb-glow-color); /* The trail color */
+    stroke-width: 6px; /* Thicker for trail effect */
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.2; /* Subtle trail visibility */
+}
+
+/* Glowing Orb */
+#glowing-orb {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    
+    border-radius: 50%;
+    filter: blur(8px);
+    box-shadow: 0 0 15px 5px var(--orb-glow-color), 0 0 30px 10px rgba(0, 123, 255, 0.5);
+    transform: translate(-50%, -50%); /* Center the orb precisely on the path point */
+    opacity: 0; /* Hidden initially, controlled by JS */
+    z-index: 10; /* Above path and boxes */
+    transition: opacity 0.5s ease-in-out; /* Smooth fade-in/out */
+}
+
+@keyframes glowPulse {
+    0% { box-shadow: 0 0 15px 5px var(--orb-glow-color), 0 0 30px 10px rgba(0, 123, 255, 0.5); }
+    50% { box-shadow: 0 0 25px 10px var(--orb-glow-color), 0 0 40px 15px rgba(0, 123, 255, 0.8); }
+    100% { box-shadow: 0 0 15px 5px var(--orb-glow-color), 0 0 30px 10px rgba(0, 123, 255, 0.5); }
+}
+
+#glowing-orb.active {
+    animation: glowPulse 1.5s infinite alternate;
+}
+
+/* Skill Box Styling */
+.skill-box {
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    padding: 15px;
+    width: 150px; /* Adjust as needed */
+    height: auto;
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.5s ease;
+    cursor: pointer;
+    position: absolute; /* Essential for `top` and `left` to work */
+    opacity: 0; /* Hidden initially */
+    transform: translateY(20px); /* Initial state for slide-up animation */
+    box-sizing: border-box;
+    z-index: 2; /* Above path, below orb */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.skill-box.show {
+    opacity: 1;
+    transform: translateY(0); /* Final state for slide-up animation */
+}
+
+.skill-box:hover {
+    transform: translateY(-5px) scale(1.08);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.skill-box h4 {
+    font-size: 1em;
+    margin-bottom: 5px;
+    color: #2c3e50;
+    line-height: 1.2;
+}
+
+.skill-box p {
+    font-size: 0.75em;
+    line-height: 1.3;
+    margin-bottom: 0;
+    color: #555;
+}
+
+.skill-box .skill-category {
+    display: inline-block;
+    background-color: #e0f2f7;
+    color: #4a90e2;
+    padding: 3px 7px;
+    border-radius: 3px;
+    font-size: 0.65em;
+    font-weight: bold;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+
+/* Responsive Adjustments (these mainly affect container and card sizing,
+   inline positions are handled by `aspect-ratio` and SVG scaling) */
+@media (max-width: 992px) {
+    #skills-section {
+        padding: 60px 15px;
+    }
+    #skills-section h2 { font-size: 2.5em; }
+    #skills-section .subtitle { font-size: 1em; margin-bottom: 30px; }
+    .skills-content-wrapper { width: 95%; aspect-ratio: 1.5 / 1; }
+    .skill-box { width: 110px; padding: 12px; }
+    .skill-box h4 { font-size: 0.9em; }
+    .skill-box p { font-size: 0.7em; }
+    .skill-box .skill-category { font-size: 0.65em; }
+}
+
+@media (max-width: 768px) {
+    #skills-section h2 { font-size: 2em; }
+    .skills-content-wrapper { aspect-ratio: 1.2 / 1; max-width: 600px; }
+    .skill-box { width: 100px; padding: 10px; }
+    .skill-box h4 { font-size: 0.8em; }
+    .skill-box p { font-size: 0.65em; }
+}
+
+@media (max-width: 480px) {
+    #skills-section { padding: 40px 10px; }
+    #skills-section h2 { font-size: 1.8em; }
+    #skills-section .subtitle { font-size: 0.9em; margin-bottom: 20px; }
+    .skills-content-wrapper { width: 100%; aspect-ratio: 1 / 1.5; border-radius: 0; box-shadow: none; }
+    .skill-box { width: 90px; padding: 7px; font-size: 0.7em; }
+    .skill-box h4 { font-size: 0.75em; }
+    .skill-box p { font-size: 0.6em; }
+    .skill-box .skill-category { font-size: 0.55em; padding: 2px 4px; }
+}
+/* --- General Section Styling (assuming .content-section is already defined) --- */
+/* You might want to adjust .content-section to remove horizontal padding if present,
+   or simply override it for this specific section. */
+
+#projects.projects-section {
+    width: 100vw; /* Force full width of viewport */
+    margin: 0;     /* Remove default margins */
+    padding: 80px 0;
+    background-color: #ffffff;
+    box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.03);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh; /* Make it fill full height of viewport if needed */
+    overflow-x: hidden; /* Prevent horizontal scroll if something spills */
+}
+
+
+/* --- Projects Header Content Layout (Key Changes Here) --- */
+.projects-header-wrapper {
+    display: flex;
+    flex-wrap: wrap; /* Allows stacking on smaller screens */
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 40px;
+    box-sizing: border-box;
+    margin-bottom: 50px;
+}
+
+/* IMAGE Styling - Tilt the bulb */
+.projects-header-wrapper img {
+    
+    height: auto;
+    transform: rotate(30deg);
+    transition: transform 0.3s ease;
+    width: 600px;
+}
+
+/* TEXT Styling */
+.projects-header-text {
+    flex: 1;
+    min-width: 300px;
+    text-align: center; /* Center the heading and subtitle */
+}
+
+.projects-header-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.projects-header-text p {
+    font-size: 1rem;
+    max-width: 500px;
+    margin: 0 auto;
+    color: #444;
+}
+
+
+.projects-image-container {
+    flex-shrink: 0; /* Prevents the image from shrinking */
+    width: 200px; /* Desired width of your image */
+    height: 200px; /* Desired height of your image */
+    /* If you want more space between image and text on desktop, add margin-right */
+    margin-right: 60px; /* Adjust this value for spacing between image and text */
+}
+
+.projects-image-container img {
+    width: 400%;
+    height: 400%;
+    margin-left: 100px;
+    object-fit: contain; /* Ensures the entire image is visible within its container */
+    display: block; /* Removes extra space below image */
+}
+
+.projects-text-container {
+    flex-grow: 1; /* Allows text to take up remaining horizontal space */
+    max-width: 700px; /* Limit text width for readability */
+    text-align: left; /* Align text to the left within this container */
+    /* No padding-left needed here due to margin-right on image */
+}
+
+/* Styles for H2 within this specific header */
+.projects-text-container h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3em;
+    margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
+    color: #2c3e50;
+}
+
+/* Underline for H2 within this specific header */
+.projects-text-container h2::after {
+    content: '';
+    position: absolute;
+    left: 0; /* Aligns underline with the left-aligned text */
+    bottom: -10px;
+    width: 60px;
+    height: 4px;
+    background-color: #4a90e2;
+    border-radius: 2px;
+}
+
+/* Styles for subtitle paragraph within this specific header */
+.projects-text-container p.subtitle {
+    font-size: 1.1em;
+    margin-bottom: 0;
+    color: #666;
+    line-height: 1.6;
+}
+#projects.projects-section h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3em;
+    margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
+    color: #0b0b0b;
+}
+
+#projects.projects-section h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -10px;
+    width: 60px;
+    height: 4px;
+    background-color: #4a90e2;
+    border-radius: 2px;
+}
+
+#projects.projects-section .subtitle {
+    font-size: 1.1em;
+    margin-bottom: 40px;
+    max-width: 800px;
+    color: #292626;
+}
+
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    #projects.projects-section {
+        padding: 60px 0; /* Adjust vertical padding */
+    }
+
+    .projects-header-wrapper {
+        flex-direction: column; /* Stack image and text vertically */
+        text-align: center; /* Center text when stacked */
+        gap: 20px; /* Add gap when stacked */
+        padding: 0 20px; /* Adjust horizontal padding for smaller screens */
+    }
+
+    .projects-image-container {
+        width: 150px; /* Smaller image on tablets/mobiles */
+        height: 150px;
+        margin-right: 0; /* Remove right margin when stacked */
+        margin-bottom: 20px; /* Add bottom margin when stacked */
+    }
+
+    .projects-text-container {
+        text-align: center; /* Center text when stacked */
+    }
+
+    .projects-text-container h2::after {
+        left: 50%; /* Center the underline below centered text */
+        transform: translateX(-50%);
+    }
+
+    .projects-text-container h2 {
+        font-size: 2.5em;
+    }
+
+    .projects-text-container p.subtitle {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    #projects.projects-section {
+        padding: 40px 0; /* Even less vertical padding */
+    }
+    .projects-header-wrapper {
+        padding: 0 15px; /* Adjust horizontal padding for very small screens */
+    }
+    .projects-text-container h2 {
+        font-size: 2em;
+    }
+    .projects-text-container p.subtitle {
+        font-size: 0.9em;
+    }
+}
+
+/* --- Specific Styling for the #projects section itself --- */
+#projects.projects-section {
+    padding: 80px 0; /* Vertical padding only, horizontal padding for inner elements */
+    background-color: #b3a7a7;
+    box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.03);
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;    /* Center overall content horizontally */
+    justify-content: flex-start;
+    min-height: 70vh;
+}
+
+/* --- Projects Header Content Layout (remains same as last response) --- */
+.projects-header-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px; /* Max width for your header content */
+    padding: 0 40px;
+    box-sizing: border-box;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+}
+
+.projects-image-container {
+    flex-shrink: 0;
+    width: 180px;
+    height: 180px;
+    margin-right: 60px; /* Space between image and text */
+}
+
+.projects-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.projects-text-container {
+    flex-grow: 1;
+    max-width: 700px;
+    text-align: left;
+}
+
+.projects-text-container h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3em;
+    margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
+    color: #2c3e50;
+}
+
+.projects-text-container h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    width: 60px;
+    height: 4px;
+    background-color: #4a90e2;
+    border-radius: 2px;
+}
+
+.projects-text-container p.subtitle {
+    font-size: 1.1em;
+    margin-bottom: 0;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* --- Projects Grid Layout (REVISED for size and fit) --- */
+.projects-grid {
+    display: grid;
+    /* This creates a flexible grid:
+       - auto-fit: fills as many columns as possible
+       - minmax(300px, 1fr): Each column will be at least 300px wide,
+         but will grow to take up available space (1fr)
+         Adjust '300px' to your desired minimum card width.
+         A larger min-width will result in fewer columns on large screens.
+    */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px; /* Space between rows and columns */
+    
+    width: 100%; /* Make grid fill the width of its parent */
+    max-width: 1200px; /* Keep consistent max-width with header for alignment */
+    padding: 0 40px; /* Match header's horizontal padding */
+    box-sizing: border-box; /* Include padding in width calculation */
+    margin-top: 30px; /* Space from the header */
+}
+
+/* --- Project Card Styling (Enhanced with colors and shadows) --- */
+.project-card {
+    background-color: #f8f8f8; /* Light background for the card */
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0.5, 0.5); /* Soft shadow */
+    padding: 25px; /* Inner padding for content */
+    text-align: left;
+    display: flex; /* Use flexbox for internal content layout */
+    flex-direction: column;
+    justify-content: space-between; /* Pushes content to top/bottom */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth hover effect */
+    height: auto; /* Allow height to adjust based on content */
+}
+
+.project-card:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* More pronounced shadow on hover */
+}
+
+.project-card h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #2c3e50; /* Dark heading color */
+}
+
+.project-card p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95em;
+    color: #555; /* Grey text color */
+    line-height: 1.6;
+    margin-bottom: 20px; /* Space before links */
+}
+
+.project-card a {
+    font-family: 'Poppins', sans-serif;
+    display: inline-block;
+    margin-right: 15px;
+    color: #4a90e2; /* Blue accent color */
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.project-card a:hover {
+    color: #1762b8; /* Darker blue on hover */
+    text-decoration: underline;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    #projects.projects-section {
+        padding: 60px 0;
+    }
+    .projects-header-wrapper {
+        flex-direction: column;
+        gap: 20px;
+        padding: 0 20px;
+    }
+    .projects-image-container {
+        width: 120px;
+        height: 120px;
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+    .projects-text-container {
+        text-align: center;
+    }
+    .projects-text-container h2::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .projects-text-container h2 {
+        font-size: 2.5em;
+    }
+    .projects-text-container p.subtitle {
+        font-size: 1em;
+    }
+
+    /* Projects Grid on smaller screens */
+    .projects-grid {
+        /* On tablets/mobiles, cards will naturally stack into fewer columns */
+        /* minmax(250px, 1fr) will make them a bit smaller before stacking */
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px; /* Smaller gap on mobile */
+        padding: 0 20px; /* Adjust padding for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    #projects.projects-section {
+        padding: 40px 0;
+    }
+    .projects-header-wrapper {
+        padding: 0 15px;
+    }
+    .projects-text-container h2 {
+        font-size: 2em;
+    }
+    .projects-text-container p.subtitle {
+        font-size: 0.9em;
+    }
+
+    /* Projects Grid on very small screens */
+    .projects-grid {
+        /* On very small phones, force a single column */
+        grid-template-columns: 1fr;
+        gap: 15px; /* Even smaller gap */
+        padding: 0 15px; /* Adjust padding for very small screens */
+    }
+}
+.project-tags {
+    display: flex;
+    flex-wrap: wrap; /* Allows tags to wrap to the next line if too many */
+    gap: 8px; /* Space between individual tags */
+    margin-top: 10px; /* Space above the tags */
+    margin-bottom: 20px; /* Space below the tags, before links */
+}
+
+/* NEW: Styles for Individual Technology Tags */
+.tag {
+    background-color: #e0f2f7; /* Light blue background, consistent with your skills section tags */
+    color: #4a90e2; /* Accent blue text color */
+    padding: 6px 10px; /* Padding inside the tag */
+    border-radius: 5px; /* Slightly rounded corners for the tag */
+    font-size: 0.8em; /* Smaller font size for tags */
+    font-weight: 600;
+    text-transform: uppercase; /* Uppercase text for a tech tag look */
+    white-space: nowrap; /* Prevents tag text from wrapping */
+}
+.horizontal-vector-image {
+    /* This will make the image span the remaining 2 columns on a 3-column grid */
+    grid-column: span 1;
+    
+    display: flex; /* Use flexbox to center content vertically/horizontally */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    background-color: transparent; /* No background for the image container itself */
+    padding: 2px; /* Add some padding around the image if needed */
+    min-height: 150px; /* Give it a min-height to ensure it's visible, adjust as needed */
+    margin-left: 200px;
+    width: 600px;
+    height: 350px;
+}
+
+.horizontal-vector-image img {
+    max-width: 100%; /* Image should fit within its container */
+    height: auto;
+    display: block; /* Remove extra space below image */
+    object-fit: contain; /* Ensures the entire image is visible, scales down */
+}

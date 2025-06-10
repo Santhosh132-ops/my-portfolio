@@ -22,7 +22,7 @@
                 <ul class="nav-list">
                     <li><a href="#about">About</a></li>
                     <li><a href="#projects">Projects</a></li>
-                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#skills-section">Skills</a></li>
                     <li><a href="#blogs">Blogs</a></li>
                     <li><a href="#contact">Contact</a></li>
                     
@@ -75,16 +75,128 @@
                 </div>
             </div>
         </section>
-        <section id="projects" class="content-section projects-section">
+      <section id="projects" class="content-section projects-section">
+    <div class="projects-header-wrapper">
+        <div class="projects-image-container">
+            <img src="images/project-sec-bg.png" alt="Projects illustration">
+        </div>
+        <div class="projects-text-container">
             <h2>My Projects</h2>
-            <p>Showcase your best work here! Each project can have a title, description, and links to live demos or repositories.</p>
+            <p class="subtitle">Just a few flexes 💻</p>
+        </div>
+    </div>
+    
+    <!-- This is your project grid container -->
+    <div class="projects-grid">
+        <!-- Each project card -->
+        <div class="project-card">
+            <h3>Project Title 1</h3>
+            <p>A brief description of Project 1, highlighting its key features and technologies used. This text can be a bit longer to test the card height.</p>
+            <div class="project-tags">
+                <span class="tag">Python</span>
+                <span class="tag">Pandas</span>
+                <span class="tag">Sci-kit Learn</span>
+            </div>
+            <a href="#" target="_blank">Live Demo</a>
+            <a href="#" target="_blank">GitHub Repo</a>
+        </div>
+        <div class="project-card">
+            <h3>Project Title 2</h3>
+            <p>Another project description. Keep it concise but informative for the user. We can add more details here.</p>
+             <div class="project-tags">
+                <span class="tag">Python</span>
+                <span class="tag">Pandas</span>
+                <span class="tag">Sci-kit Learn</span>
+            </div>
+            <a href="#" target="_blank">Live Demo</a>
+            <a href="#" target="_blank">GitHub Repo</a>
+        </div>
+        <div class="project-card">
+            <h3>Project Title 3</h3>
+            <p>This is a third project card to fill out the grid. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+             <div class="project-tags">
+                <span class="tag">Python</span>
+                <span class="tag">Pandas</span>
+                <span class="tag">Sci-kit Learn</span>
+            </div>
+            <a href="#" target="_blank">Live Demo</a>
+            <a href="#" target="_blank">GitHub Repo</a>
+        </div>
+        <div class="project-card">
+            <h3>Project Title 4</h3>
+            <p>A fourth project demonstrating responsiveness. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+             <div class="project-tags">
+                <span class="tag">Python</span>
+                <span class="tag">Pandas</span>
+                <span class="tag">Sci-kit Learn</span>
+            </div>
+            <a href="#" target="_blank">Live Demo</a>
+            <a href="#" target="_blank">GitHub Repo</a>
+        </div>
+        <div class="horizontal-vector-image">
+            <!-- Replace 'path/to/your/horizontal-vector-image.svg' with your actual image path -->
+            <!-- Use SVG for vector images for best scalability and quality -->
+            <img src="images/paper-style-core-values-background.png" alt="Decorative horizontal element">
+        </div>
+        <!-- Add more project-card divs here as needed -->
+    </div>
+</section>
+    
         </section>
 
-        <section id="skills" class="content-section skills-section">
-            <h2>My Skills</h2>
-            <p>List your technical skills (programming languages, frameworks, tools) and any relevant soft skills.</p>
-        </section>
+       <section id="skills-section">
+    <h2>My Skills</h2>
+    <p class="subtitle">A journey through my expertise and technical proficiencies.</p>
 
+    <div class="skills-content-wrapper">
+        <svg id="skill-path-svg" viewBox="0 0 1000 600">
+            <path id="animationPath" d="M 50 50 L 200 50 Q 250 50, 250 100 L 250 150 Q 250 200, 200 200 L 100 200 Q 50 200, 50 250 L 50 300 Q 50 350, 100 350 L 250 350 Q 300 350, 300 300 L 300 250 Q 300 200, 350 200 L 500 200 Q 550 200, 550 250 L 550 300 Q 550 350, 500 350 L 400 350 Q 350 350, 350 400 L 350 450 Q 350 500, 400 500 L 550 500 Q 600 500, 600 450 L 600 400 Q 600 350, 650 350 L 800 350 Q 850 350, 850 400 L 850 450 Q 850 500, 900 500 L 950 500"
+                  fill="none" stroke="var(--path-stroke-color)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+            <path id="movingDotPath" d="M 50 50 L 200 50 Q 250 50, 250 100 L 250 150 Q 250 200, 200 200 L 100 200 Q 50 200, 50 250 L 50 300 Q 50 350, 100 350 L 250 350 Q 300 350, 300 300 L 300 250 Q 300 200, 350 200 L 500 200 Q 550 200, 550 250 L 550 300 Q 550 350, 500 350 L 400 350 Q 350 350, 350 400 L 350 450 Q 350 500, 400 500 L 550 500 Q 600 500, 600 450 L 600 400 Q 600 350, 650 350 L 800 350 Q 850 350, 850 400 L 850 450 Q 850 500, 900 500 L 950 500"
+                  fill="none" stroke="var(--orb-glow-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.2;"/>
+        </svg>
+
+        <div id="glowing-orb"></div>
+
+        <div class="skill-box" data-skill-index="0" style="left: 15%; top: 3%;">
+            <span class="skill-category">Frontend</span>
+            <h4>React.js</h4>
+            <p>Building dynamic UIs with modern React patterns.</p>
+        </div>
+        <div class="skill-box" data-skill-index="1" style="left: 1%; top: 25%;">
+            <span class="skill-category">Backend</span>
+            <h4>Node.js</h4>
+            <p>Developing scalable server-side applications.</p>
+        </div>
+        <div class="skill-box" data-skill-index="2" style="left: 18%; top: 45%;">
+            <span class="skill-category">Database</span>
+            <h4>MongoDB</h4>
+            <p>Managing NoSQL databases for flexible data.</p>
+        </div>
+        <div class="skill-box" data-skill-index="3" style="left: 45%; top: 28%;">
+            <span class="skill-category">Cloud</span>
+            <h4>AWS Services</h4>
+            <p>Deploying and managing cloud infrastructure.</p>
+        </div>
+        <div class="skill-box" data-skill-index="4" style="left: 30%; top: 70%;">
+            <span class="skill-category">DevOps</span>
+            <h4>CI/CD</h4>
+            <p>Automating software delivery pipelines.</p>
+        </div>
+        <div class="skill-box" data-skill-index="5" style="left: 58%; top: 51%;">
+            <span class="skill-category">Tools</span>
+            <h4>Git & GitHub</h4>
+            <p>Version control and collaborative development.</p>
+        </div>
+        
+        <div class="skill-box" data-skill-index="7" style="left: 80.5%; top: 46%;">
+            <span class="skill-category">Design</span>
+            <h4>UI/UX Principles</h4>
+            <p>Creating intuitive and engaging user experiences.</p>
+        </div>
+    </div>
+</section>
        <section id="blogs" class="content-section blogs-section">
             <div class="container">
                 <h2 class="section-title">My Latest <span class="accent-text">Blogs</span></h2>
@@ -97,9 +209,9 @@
                             <img src="images/blog-post-1.jpg" alt="Blog Post Image 1" class="blog-post-image">
                             <div class="blog-post-content">
                                 <span class="blog-category">Web Development</span>
-                                <h3>Mastering Responsive Design with Flexbox</h3>
+                                <h3>AWS Cloud Foundations: Core Services Demystified</h3>
                                 <p>A comprehensive guide to building flexible and adaptable layouts using CSS Flexbox for modern web applications.</p>
-                                <a href="blog-flexbox.html"  class="read-more-link">Read More <i class="fas fa-arrow-right"></i></a>
+                                <a href="blog-aws.html"  class="read-more-link">Read More <i class="fas fa-arrow-right"></i></a>
                             </div>
                         </article>
 
@@ -124,11 +236,11 @@
                         </article>
 
                         <article class="blog-post-card">
-                            <img src="images/blog-post-1.jpg" alt="Blog Post Image 1" class="blog-post-image">
+                            <img src="images/blog-img-1.png" alt="Blog Post Image 1" class="blog-post-image">
                             <div class="blog-post-content">
-                                <span class="blog-category">Web Development</span>
-                                <h3>Mastering Responsive Design with Flexbox</h3>
-                                <p>A comprehensive guide to building flexible and adaptable layouts using CSS Flexbox for modern web applications.</p>
+                                <span class="blog-category">CLOUD</span>
+                                <h3>AWS Cloud Foundations: Core Services Demystified</h3>
+                                <p>Welcome to the foundational guide to AWS Cloud services! Amazon Web Services (AWS) is the world's most comprehensive and broadly adopted cloud platform, offering over 200 fully featured services from data centers globally</p>
                                 <a href="blog-flexbox.html" target="_blank" class="read-more-link">Read More <i class="fas fa-arrow-right"></i></a>
                             </div>
                         </article>
@@ -218,9 +330,154 @@
     <footer>
         </footer>
     <script src="js/script.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const skillsSection = document.getElementById('skills-section');
+        const movingDotPath = document.getElementById('movingDotPath'); // Target the path for the orb
+        const glowingOrb = document.getElementById('glowing-orb');
+        // Select all skill boxes, ensuring they have the data-skill-index attribute for proper mapping
+        const skillBoxes = document.querySelectorAll('.skill-box[data-skill-index]');
 
-   
-</body>
-</html>
+        if (!skillsSection || !movingDotPath || !glowingOrb || skillBoxes.length === 0) {
+            console.error("Required elements for skills animation not found. Check IDs: skills-section, movingDotPath, glowing-orb, and .skill-box elements with data-skill-index.");
+            return;
+        }
+
+        const pathLength = movingDotPath.getTotalLength();
+        const animationDuration = 5000; // 15 seconds for the full animation loop (adjust for speed)
+        let animationFrameId;
+        let startTime;
+        let observer;
+
+        // **IMPORTANT: Fine-tune these trigger points!**
+        // These are percentages (0.0 to 1.0) along the `movingDotPath` where each skill box should appear.
+        // They are based on the order of your skill boxes in the HTML (data-skill-index 0 to 7).
+        // You'll need to open your browser's dev tools, go to the console, and adjust these numbers
+        // until the orb visually aligns with the card when it appears.
+        const skillTriggerPoints = [
+            0.04, // Skill 0: React.js (Frontend)
+            0.15, // Skill 1: Node.js (Backend)
+            0.24, // Skill 2: MongoDB (Database)
+            0.38, // Skill 3: AWS Services (Cloud)
+            0.50, // Skill 4: CI/CD (DevOps)
+            0.62, // Skill 5: Git & GitHub (Tools)
+            0.78, // Skill 6: Unit & Integration (Testing)
+            0.92  // Skill 7: UI/UX Principles (Design)
+        ];
+
+        // Function to update orb position and show skills
+        function animateOrb(currentTime) {
+            if (!startTime) startTime = currentTime;
+            const elapsedTime = currentTime - startTime;
+            // Calculate progress, looping the animation using modulo
+            const progress = (elapsedTime % animationDuration) / animationDuration;
+
+            const point = movingDotPath.getPointAtLength(progress * pathLength);
+
+            glowingOrb.style.left = `${point.x}px`;
+            glowingOrb.style.top = `${point.y}px`;
+
+            // Make orb visible and start glow pulse when animation first starts
+            if (glowingOrb.style.opacity === '0') {
+                glowingOrb.style.opacity = '1';
+                glowingOrb.classList.add('active'); // Add class to trigger glowPulse CSS animation
+            }
+
+            // Check if any skill box should appear
+            skillTriggerPoints.forEach((trigger, index) => {
+                // Define a small window around the trigger point for activation
+                const windowSize = 0.02; // +/- 2% of path length, adjust for desired activation "zone"
+                const lowerBound = trigger - windowSize;
+                const upperBound = trigger + windowSize;
+
+                let isInWindow = false;
+
+                // Handle wrapping around the path ends for continuous animation
+                if (lowerBound < 0) {
+                    if (progress >= (1 + lowerBound) || progress <= upperBound) {
+                        isInWindow = true;
+                    }
+                } else if (upperBound > 1) {
+                    if (progress >= lowerBound || progress <= (upperBound - 1)) {
+                        isInWindow = true;
+                    }
+                } else {
+                    if (progress >= lowerBound && progress <= upperBound) {
+                        isInWindow = true;
+                    }
+                }
+
+                const skillBox = Array.from(skillBoxes).find(box =>
+                    parseInt(box.dataset.skillIndex) === index
+                );
+
+                if (skillBox) { // Ensure the skillBox element exists
+                    if (isInWindow) {
+                        if (!skillBox.classList.contains('show')) {
+                            skillBox.classList.add('show');
+                        }
+                    } else {
+                        // Optional: If you want cards to hide after the orb passes, uncomment this.
+                        // For a persistent display, keep it commented.
+                        // if (skillBox.classList.contains('show')) {
+                        //     skillBox.classList.remove('show');
+                        // }
+                    }
+                }
+            });
+
+            // Request the next animation frame to continue the loop
+            animationFrameId = requestAnimationFrame(animateOrb);
+        }
+
+        // Intersection Observer to start/stop animation when section is in view
+        observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Start animation if not already running
+                    if (!animationFrameId) {
+                        startTime = null; // Reset startTime for a fresh animation cycle from the beginning
+                        animationFrameId = requestAnimationFrame(animateOrb);
+                    }
+                } else {
+                    // Stop animation if section is out of view
+                    if (animationFrameId) {
+                        cancelAnimationFrame(animationFrameId);
+                        animationFrameId = null;
+                        glowingOrb.style.opacity = '0'; // Hide orb
+                        glowingOrb.classList.remove('active'); // Stop glow pulse
+                        // Optional: Hide all skill boxes when section is out of view
+                        // skillBoxes.forEach(box => box.classList.remove('show'));
+                    }
+                }
+            });
+        }, { threshold: 0.4 }); // Adjust threshold (e.g., 0.4 = 40% of section visible)
+
+        // Start observing the skills section
+        observer.observe(skillsSection);
+
+        // Handle responsiveness: Recalculate path and restart animation on window resize
+        window.addEventListener('resize', () => {
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId); // Stop current animation
+                animationFrameId = null;
+            }
+            // Give browser time to re-render layout before restarting animation
+            setTimeout(() => {
+                // Only restart if the section is currently intersecting
+                if (skillsSection.offsetParent !== null && observer.threshold) {
+                    startTime = null; // Reset time
+                    animationFrameId = requestAnimationFrame(animateOrb);
+                }
+            }, 2); // 200ms delay
+        });
+    });
+</script>
+<script>
+    window.chatbaseConfig = {
+      chatbotId: "YOUR_CHATBOT_ID",
+    }
+</script>
+<script src="https://www.chatbase.co/embed.min.js" id="YOUR_CHATBOT_ID" defer></script>
 </body>
 </html>
