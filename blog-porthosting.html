@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>From VS Code to the Cloud: Hosting Your Portfolio on AWS Amplify (and Staying Free!) - My Tech Insights</title>
+    <link rel="stylesheet" href="css/blog-post-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="blog-top-nav">
+        <div class="blog-nav-container">
+            <a href="index.html#blogs" class="back-btn" aria-label="Go back to blogs section">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <a href="index.html" class="blog-brand-logo">
+                <span class="logo-text">My Tech Insights</span>
+            </a>
+
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="blog-page-wrapper">
+        <header class="blog-hero-section">
+            <div class="blog-header-content-wrapper">
+                <span class="blog-category-tag">Cloud & Development</span>
+                <h1>From VS Code to the Cloud: Hosting Your Portfolio on AWS Amplify (and Staying Free!)</h1>
+                <p class="blog-author-date">by Santhosh Kunam · <time datetime="2025-06-10">June 10, 2025</time></p>
+            </div>
+            <div class="blog-featured-image-container">
+                <img src="images/aws.jpg" alt="Illustration of VS Code, GitHub logo, and AWS cloud icons" class="blog-featured-image">
+            </div>
+        </header>
+
+        <main class="blog-main-layout">
+            <article class="blog-article-content">
+                <blockquote class="blog-introduction-quote">
+                    <p>"Building a great portfolio is only half the battle; making it accessible to the world securely and without breaking the bank is the other half."</p>
+                </blockquote>
+
+                <p>Welcome, fellow developers! If you're anything like me, you've probably spent countless hours crafting the perfect portfolio project. But then comes the big question: how do you get it online for everyone to see, especially if you're aiming for a zero-cost solution?</p>
+                <p>In this comprehensive guide, I'll walk you through the exact process I used to deploy my static portfolio website from **VS Code to AWS Amplify Hosting**. We'll cover everything from preparing your Git repository to setting up crucial cost alerts to ensure you stay within AWS's generous Free Tier. This post will also address a common pitfall I encountered with Git branch naming, so you can avoid it!</p>
+
+                <section class="blog-section" id="prerequisites">
+                    <h2>1. Prerequisites: What You'll Need Before We Start</h2>
+                    <p>Before diving in, make sure you have the following:</p>
+                    <ul>
+                        <li>**Your Static Portfolio Project:** This guide assumes your portfolio is built with HTML, CSS, JavaScript, and images – no complex backend servers or databases. (Like my project structure: `index.html`, `css/`, `js/`, `images/` folders).</li>
+                        <li>**Visual Studio Code (VS Code):** Your preferred code editor for managing the project locally.</li>
+                        <li>**Git Installed:** The version control system. You can download it from <a href="https://git-scm.com/downloads" target="_blank">git-scm.com</a>.</li>
+                        <li>**GitHub Account:** Where your project's code will live remotely. Create one at <a href="https://github.com/" target="_blank">github.com</a> if you don't have one.</li>
+                        <li>**AWS Account:** You'll need an active Amazon Web Services account. If you're new, sign up for the <a href="https://aws.amazon.com/free/" target="_blank">AWS Free Tier</a>. Ensure billing is enabled for your account.</li>
+                    </ul>
+                </section>
+
+                <section class="blog-section" id="git-github">
+                    <h2>2. Getting Your Project on GitHub from VS Code</h2>
+                    <p>This step is foundational. AWS Amplify will pull your code directly from your GitHub repository. I encountered a common issue here, so pay close attention!</p>
+
+                    <h3>Initialize Your Git Repository (if not done)</h3>
+                    <p>Open your portfolio project folder in VS Code. Open the integrated terminal (<kbd>Ctrl</kbd>+<kbd>`</kbd> backtick or `View > Terminal`).</p>
+                    <pre><code class="language-bash">
+# Navigate to your project root (if not already there)
+cd C:\Users\mrsub\OneDrive\Desktop\my-portfolio
+
+# Initialize Git in your project
+git init
+                    </code></pre>
+                    <p>Then, stage and commit your initial project files:</p>
+                    <pre><code class="language-bash">
+git add .
+git commit -m "Initial commit: Portfolio structure and content"
+                    </code></pre>
+
+                    <h3>Create an Empty GitHub Repository</h3>
+                    <ol>
+                        <li>Go to <a href="https://github.com/" target="_blank">GitHub</a> and sign in.</li>
+                        <li>Click the `+` sign in the top right corner and select `New repository`.</li>
+                        <li>Give it a clear name (e.g., `my_portfolio`).</li>
+                        <li>Set it to `Public` (for a portfolio, this is common).</li>
+                        <li><strong>CRITICAL: DO NOT check "Add a README file," "Add .gitignore," or "Choose a license."</strong> You want an *empty* repository to link your existing local one.</li>
+                        <li>Click `Create repository`.</li>
+                        <li>On the next page, copy the HTTPS URL (it will look like `https://github.com/your-username/your-repo-name.git`).</li>
+                    </ol>
+
+                    <h3>Connect Local to Remote and Push (Solving the `src refspec` Error!)</h3>
+                    <p>This is where I hit a snag, and you might too. Many newer GitHub repositories default to a `main` branch, while older local Git setups (or new `git init` commands) might create a `master` branch.</p>
+                    <p>First, link your local repository to the GitHub remote:</p>
+                    <pre><code class="language-bash">
+# Replace with your copied GitHub URL
+git remote add origin https://github.com/Santhosh132-ops/my_portfolio.git
+                    </code></pre>
+                    <p>Now, when I initially tried to push with `git push -u origin main`, I got the error:</p>
+                    <pre><code class="language-bash">
+error: src refspec main does not match any
+error: failed to push some refs to 'https://github.com/Santhosh132-ops/my_portfolio.git'
+                    </code></pre>
+                    <p><strong>The Fix: Your local branch is likely `master`.</strong></p>
+                    <p>To confirm your local branch name, run `git branch` in your VS Code terminal. It will probably show `* master`.</p>
+                    <p>To push your local `master` branch to the `main` branch on GitHub (and set up tracking for future pushes), use this command:</p>
+                    <pre><code class="language-bash">
+git push -u origin master:main
+                    </code></pre>
+                    <p><strong>Authentication:</strong> You'll be prompted for your GitHub credentials. For secure access, use a **Personal Access Token (PAT)**. If you don't have one, generate it under your GitHub settings (Settings &gt; Developer settings &gt; Personal access tokens &gt; Tokens (classic) &gt; Generate new token. Grant it `repo` scope and **copy the token immediately!** You won't see it again).</p>
+
+                    <h3>Verify on GitHub</h3>
+                    <p>After a successful push, visit your GitHub repository page (<a href="https://github.com/Santhosh132-ops/my_portfolio" target="_blank">https://github.com/Santhosh132-ops/my_portfolio</a>). You should now see all your portfolio files and folders. The default branch should proudly display `main`.</p>
+                </section>
+
+                <section class="blog-section" id="amplify-deploy">
+                    <h2>3. Deploying Your Portfolio with AWS Amplify Hosting</h2>
+                    <p>With your code now safely on GitHub, we can connect it to AWS Amplify for seamless deployment. Amplify is perfect for static websites like our portfolio, offering built-in CI/CD, CDN, and SSL.</p>
+
+                    <h3>Step-by-step in AWS Console:</h3>
+                    <ol>
+                        <li>**Go to AWS Console:** Log in to your AWS Management Console.</li>
+                        <li>**Search for "Amplify":** In the search bar at the top, type "Amplify" and select "AWS Amplify".</li>
+                        <li>**Start Hosting:** Under "Host your web app", click the "Get started" button.</li>
+                        <li>**Connect Repository:** Select "GitHub" as your repository service. You'll be prompted to authorize AWS Amplify to access your GitHub account.</li>
+                        <li>**Select Repository & Branch:**
+                            <ul>
+                                <li>Choose your `my_portfolio` repository from the dropdown.</li>
+                                <li>Select the branch you want to deploy from (this will likely be `main`, or `master` if you decided to keep that as your primary branch on GitHub).</li>
+                            </ul>
+                        </li>
+                        <li>**Build Settings:** Since your project is pure HTML/CSS/JS, Amplify is smart enough to detect it as a static site. You typically don't need a complex build command.
+                            <ul>
+                                <li>The `baseDirectory` setting in the build specification (<a href="https://docs.aws.amazon.com/amplify/latest/userguide/build-settings.html#baseDirectory" target="_blank">learn more</a>) should point to the root of your web files (e.g., `/`). For a simple static site, the default is usually fine.</li>
+                                <li>You saw the "Welcome" page initially (<a href="YOUR_AMPLIFY_URL_HERE" target="_blank">your_amplify_url_here</a>). This happened because Amplify hadn't successfully pulled and deployed your code from GitHub yet. Once your GitHub push was fixed, Amplify automatically detected the changes and deployed them.</li>
+                            </ul>
+                        </li>
+                        <li>**Review and Deploy:** Review your settings and click "Save and deploy".</li>
+                    </ol>
+
+                    <h3>Verify Your Live Website</h3>
+                    <p>Amplify will now connect to your GitHub repo, pull your code, and deploy it. You'll see the build process in the Amplify console. Once it's successful (look for the green "Deployed" status), you'll get a unique Amplify-generated URL (e.g., `https://main.d123abc456def.amplifyapp.com`). Open this URL in your browser, and your portfolio should now be proudly visible!</p>
+                    <p>**Continuous Deployment in Action:** The beauty of Amplify is its CI/CD. Any future changes you push to your connected GitHub branch will automatically trigger a new build and deployment on Amplify. No more manual uploads!</p>
+                </section>
+
+                <section class="blog-section" id="billing-alerts">
+                    <h2>4. Staying Free: Setting Up AWS CloudWatch Billing Alerts</h2>
+                    <p>While AWS Amplify has a generous free tier, it's always wise to set up cost monitoring. This helps prevent any unexpected charges if your site unexpectedly gets viral traffic or if you accidentally provision a paid resource.</p>
+
+                    <h3>Prerequisite: Enable Billing Alerts</h3>
+                    <p>This is a one-time setup for your AWS account:</p>
+                    <ol>
+                        <li>Log in to your AWS Management Console.</li>
+                        <li>In the search bar, type "Billing and Cost Management" and select the service.</li>
+                        <li>In the left-hand navigation pane, click on "Billing preferences".</li>
+                        <li>Scroll to "Receive Billing Alerts". Ensure both "Receive AWS Free Tier alerts" and "Receive CloudWatch billing alerts" are checked. Enter your email if needed. Click "Update". (This is exactly what I did in my <a href="images/image_ba6e39.png" target="_blank">Alert preferences screenshot</a>.)</li>
+                    </ol>
+
+                    <h3>Create the Cost Alarm in CloudWatch (Region-Specific Step!)</h3>
+                    <p>This is another common pitfall! AWS billing metrics are **global** and are **only accessible from the US East (N. Virginia) region (<code>us-east-1</code>)**, regardless of where your other resources (like Amplify) are located.</p>
+                    <ol>
+                        <li>**Switch Region:** At the top right of your AWS Management Console, click the region dropdown (e.g., "Asia Pacific (Mumbai)") and select **"US East (N. Virginia)"**.</li>
+                        <li>**Go to CloudWatch:** Search for "CloudWatch" in the top search bar and select it.</li>
+                        <li>**Navigate to Alarms:** In the left navigation pane, click on "Alarms" &gt; "All alarms".</li>
+                        <li>**Create a new Alarm:** Click the orange "Create alarm" button.</li>
+                        <li>**Select the Metric:**
+                            <ul>
+                                <li>Click "Select metric".</li>
+                                <li>Expand "AWS/Billing" &gt; "Total Estimated Charges".</li>
+                                <li>Check the box next to "EstimatedCharges" under "Currency" `USD`.</li>
+                                <li>Click "Select metric".</li>
+                            </ul>
+                        </li>
+                        <li>**Configure Metric and Conditions:**
+                            <ul>
+                                <li>**Statistic:** `Maximum`</li>
+                                <li>**Period:** `6 Hours` (or `1 Day` for less frequent checks).</li>
+                                <li>**Threshold type:** `Static`</li>
+                                <li>**"Whenever EstimatedCharges is":** `GreaterThanOrEqual`</li>
+                                <li>**"than":** Enter a low threshold like `1` (for $1.00 USD) or `5` (for $5.00 USD). This is your early warning.</li>
+                            </ul>
+                            Click "Next".
+                        </li>
+                        <li>**Configure Actions (Notifications):**
+                            <ul>
+                                <li>**Notification:** Keep it set to "In alarm".</li>
+                                <li>**Select an SNS topic:** Choose "Create new topic".</li>
+                                <li>**Topic name:** Give it a clear name, e.g., `MyAWSBillingAlerts`.</li>
+                                <li>**Email endpoints:** Enter the email address where you want to receive alerts.</li>
+                                <li>Click "Create topic".</li>
+                            </ul>
+                            **CRITICAL: IMMEDIATE EMAIL CONFIRMATION!** Check your inbox for an email from AWS SNS (`no-reply@sns.amazonaws.com`). You **MUST click the "Confirm subscription" link** in this email for the alerts to actually be sent to you.
+                            Click "Next".
+                        </li>
+                        <li>**Add Name and Description:**
+                            <ul>
+                                <li>**Alarm name:** `PortfolioCostThresholdAlarm`</li>
+                                <li>**Alarm description (optional):** "Alerts when estimated AWS charges exceed $1.00 USD for my portfolio."</li>
+                            </ul>
+                            Click "Next".
+                        </li>
+                        <li>**Review and Create:** Review all your settings and click "Create alarm".</li>
+                    </ol>
+
+                    <h3>What to Expect from Your Alerts</h3>
+                    <p>Once your alarm is set up and confirmed, its status will be "OK" as long as your estimated charges are below your threshold. If your monthly estimated bill reaches or exceeds your threshold, the alarm will go into an "ALARM" state, and you'll receive an email notification. This gives you a heads-up to investigate any unexpected usage.</p>
+                </section>
+
+                <section class="blog-section" id="conclusion">
+                    <h2>5. Conclusion & Next Steps</h2>
+                    <p>You've successfully taken your static portfolio from your local VS Code environment, deployed it seamlessly via GitHub and AWS Amplify, and fortified it with crucial cost monitoring. This setup not only gets your work online quickly and reliably but also ensures you're leveraging the power of AWS while staying within the Free Tier.</p>
+                    <p>I encourage you to explore further! Experiment with custom domains on Amplify, optimize your images, and continue refining your portfolio. The cloud is vast, and you've just taken a significant step in navigating it.</p>
+                    <p>Feel free to reach out with any questions or share your own deployment experiences!</p>
+                </section>
+
+            </article>
+
+            <aside class="blog-sidebar">
+                <nav class="blog-table-of-contents">
+                    <h3>Table of Contents</h3>
+                    <ul>
+                        <li><a href="#prerequisites">Prerequisites</a></li>
+                        <li><a href="#git-github">Getting Your Project on GitHub from VS Code</a></li>
+                        <li><a href="#amplify-deploy">Deploying with AWS Amplify Hosting</a></li>
+                        <li><a href="#billing-alerts">Staying Free: Setting Up AWS CloudWatch Billing Alerts</a></li>
+                        <li><a href="#conclusion">Conclusion & Next Steps</a></li>
+                    </ul>
+                </nav>
+                <div class="sidebar-widget related-posts">
+                    <h3>Explore More Tech Insights</h3>
+                    <ul>
+                        <li><a href="blog-flexbox.html">Mastering Responsive Design with Flexbox</a></li>
+                        <li><a href="blog-tensorflowjs.html">Getting Started with TensorFlow.js</a></li>
+                        <li><a href="blog-aws.html">AWS Cloud Foundations: Core Services Demystified</a></li>
+                    </ul>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <footer class="blog-page-bottom-footer">
+        <div class="blog-footer-content">
+            <p>&copy; 2025 My Tech Insights. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for table of contents
+        document.querySelectorAll('.blog-table-of-contents a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Optional: Active link highlighting for TOC based on scroll position
+        const sections = document.querySelectorAll('.blog-section');
+        const navLinks = document.querySelectorAll('.blog-table-of-contents a');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 120; // Adjust offset for sticky header
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // --- Dark Mode JavaScript ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+        const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
+
+        // Function to set the theme
+        function setTheme(isDark) {
+            if (isDark) {
+                body.classList.add('dark-mode');
+                themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark-mode');
+                themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Check for saved theme preference or system preference on load
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme === 'dark');
+        } else if (prefersDarkMode.matches) {
+            setTheme(true);
+        } else {
+            setTheme(false);
+        }
+
+        // Toggle theme on button click
+        themeToggleBtn.addEventListener('click', () => {
+            setTheme(!body.classList.contains('dark-mode'));
+        });
+
+        // Listen for system theme changes
+        prefersDarkMode.addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                setTheme(e.matches);
+            }
+        });
+    </script>
+</body>
+</html>
