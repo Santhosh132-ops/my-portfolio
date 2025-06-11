@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+
     // --- Smooth scrolling for navigation links ---
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -16,23 +17,51 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Optional: Smooth scroll for general navigation links (if different from above)
+    // This seems redundant with the first one, but keeping it if there's a subtle difference
+    // in the selectors or behavior you intended. If not, you can remove this block.
+    document.querySelectorAll('nav a').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+
     // --- Read more/less functionality for About section ---
     const readMoreBtn = document.getElementById('read-more-btn');
     const moreContent = document.querySelector('.more-content');
 
     if (readMoreBtn && moreContent) {
+        // Initial state for 'more-content' to be hidden
+        moreContent.style.maxHeight = '0';
+        moreContent.style.opacity = '0';
+        moreContent.style.overflow = 'hidden';
+        moreContent.style.transition = 'max-height 0.5s ease-out, opacity 0.5s ease-out';
+
         readMoreBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            if (moreContent.style.display === 'none' || moreContent.style.display === '') {
-                moreContent.style.display = 'inline'; // Use inline to flow with text
-                this.textContent = 'Read less';
-            } else {
-                moreContent.style.display = 'none';
+            if (moreContent.style.maxHeight && moreContent.style.maxHeight !== '0px') {
+                moreContent.style.maxHeight = '0';
+                moreContent.style.opacity = '0';
+                moreContent.style.overflow = 'hidden';
                 this.textContent = 'Read more';
+            } else {
+                moreContent.style.maxHeight = moreContent.scrollHeight + 'px'; // Expand to full height
+                moreContent.style.opacity = 1;
+                moreContent.style.overflow = 'visible'; // Allow content to be seen
+                this.textContent = 'Read less';
             }
         });
-        // Hide on initial load
-        moreContent.style.display = 'none';
     }
 
 
@@ -75,27 +104,100 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 7000); // Message disappears after 7 seconds
         });
     }
-});
-document.addEventListener('DOMContentLoaded', function() {
-    // ... (Your existing smooth scrolling, read more, contact form code) ...
 
-    // --- Infinite Blog Card Carousel Animation ---
+
+    // --- Manual Blog Carousel / Slider with Arrows ---
+    // IMPORTANT: Remove any CSS animation for automatic scrolling on .blogs-carousel-inner
+    const blogsCarouselContainer = document.querySelector('.blogs-carousel-container');
+    const prevArrow = document.querySelector('.blogs-carousel-wrapper .prev-arrow');
+    const nextArrow = document.querySelector('.blogs-carousel-wrapper .next-arrow');
+
+    if (blogsCarouselContainer && prevArrow && nextArrow) {
+        // Function to check if scrolling is needed and update arrow visibility
+        function checkScrollButtons() {
+            const scrollLeft = blogsCarouselContainer.scrollLeft;
+            const scrollWidth = blogsCarouselContainer.scrollWidth;
+            const clientWidth = blogsCarouselContainer.clientWidth;
+
+            // Hide/show arrows based on scroll position
+            if (scrollLeft <= 1) { // Use a small tolerance for 0
+                prevArrow.style.opacity = '0.5'; // Indicate no more scroll left
+                prevArrow.style.cursor = 'default';
+            } else {
+                prevArrow.style.opacity = '1';
+                prevArrow.style.cursor = 'pointer';
+            }
+
+            if (scrollLeft + clientWidth >= scrollWidth - 1) { // -1 for slight tolerance
+                nextArrow.style.opacity = '0.5'; // Indicate no more scroll right
+                nextArrow.style.cursor = 'default';
+            } else {
+                nextArrow.style.opacity = '1';
+                nextArrow.style.cursor = 'pointer';
+            }
+
+            // If content fits completely, hide both arrows
+            if (scrollWidth <= clientWidth + 2) { // +2 for slight tolerance
+                prevArrow.style.display = 'none';
+                nextArrow.style.display = 'none';
+            } else {
+                prevArrow.style.display = 'flex'; // Use flex to center icon
+                nextArrow.style.display = 'flex'; // Use flex to center icon
+            }
+        }
+
+        // Calculate scroll amount dynamically if possible, or use a fixed value
+        // A good scroll amount is the width of one card + its gap
+        // You might need to get the first card's computed width
+        const firstCard = document.querySelector('.blogs-carousel-inner .blog-post-card');
+        let scrollAmount = 420; // Default if card not found
+
+        if (firstCard) {
+            const cardStyle = window.getComputedStyle(firstCard);
+            const cardWidth = firstCard.offsetWidth; // Includes padding and border
+            const cardMarginRight = parseFloat(cardStyle.marginRight); // Get gap if set as margin
+            const cardGap = parseFloat(window.getComputedStyle(firstCard.parentElement).gap); // Get gap from parent
+
+            // Prioritize gap from parent, otherwise use margin
+            scrollAmount = cardWidth + (cardGap || cardMarginRight || 0);
+            // Add a small buffer for smoother appearance if cards are perfectly aligned
+            scrollAmount += 10;
+        }
+
+
+        prevArrow.addEventListener('click', () => {
+            blogsCarouselContainer.scrollBy({
+                left: -scrollAmount,
+                behavior: 'smooth'
+            });
+        });
+
+        nextArrow.addEventListener('click', () => {
+            blogsCarouselContainer.scrollBy({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+        });
+
+        // Update arrow visibility on scroll and resize
+        blogsCarouselContainer.addEventListener('scroll', checkScrollButtons);
+        window.addEventListener('resize', checkScrollButtons);
+
+        // Initial check on load
+        checkScrollButtons();
+    }
+
+
+    // --- Infinite Blog Card Carousel Animation (DISABLED - AS PER USER REQUEST) ---
+    // This section is commented out because the user wants manual navigation.
+    // If you uncomment this, it will likely conflict with the manual arrow navigation.
+    /*
     const blogsInner = document.querySelector('.blogs-carousel-inner');
-
     if (blogsInner) {
-        // We need the width of one full set of unique cards.
-        // We'll assume the first half of the blogsInner contains one full set of unique cards.
-        // Get the total scrollable width of the *entire* blogs-carousel-inner content.
         const totalContentWidth = blogsInner.scrollWidth;
-
-        // The animation distance should be exactly half of the total content width,
-        // because we have duplicated the content.
         const distanceToScroll = totalContentWidth / 2;
-
-        // Set a CSS variable with this calculated distance
         blogsInner.style.setProperty('--scroll-distance', `-${distanceToScroll}px`);
 
-        // Dynamically create/update style tag for the keyframes
         let styleSheet = document.getElementById('blog-carousel-animation-styles');
         if (!styleSheet) {
             styleSheet = document.createElement('style');
@@ -113,59 +215,56 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         `;
-
-        // The animation is already applied in CSS. The JS just ensures --scroll-distance is correct.
-
-        // Optional: Ensure it's responsive if window resizes
-        // This is important because card widths and gaps might change on resize.
         window.addEventListener('resize', () => {
             const reCalcTotalContentWidth = blogsInner.scrollWidth;
             const reCalcDistanceToScroll = reCalcTotalContentWidth / 2;
             blogsInner.style.setProperty('--scroll-distance', `-${reCalcDistanceToScroll}px`);
         });
     }
-});
-const themeToggleBtn = document.getElementById('theme-toggle');
-        const body = document.body;
-        const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
+    */
 
-        // Function to set the theme
-        function setTheme(isDark) {
-            if (isDark) {
-                body.classList.add('dark-mode');
-                themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>'; // Sun icon for dark mode (click to go light)
-                localStorage.setItem('theme', 'dark');
-            } else {
-                body.classList.remove('dark-mode');
-                themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>'; // Moon icon for light mode (click to go dark)
-                localStorage.setItem('theme', 'light');
-            }
-        }
 
-        // Check for saved theme preference or system preference on load
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            setTheme(savedTheme === 'dark');
-        } else if (prefersDarkMode.matches) {
-            setTheme(true); // Default to dark if system prefers it and no preference saved
+    // --- Theme Toggle ---
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
+
+    // Function to set the theme
+    function setTheme(isDark) {
+        if (isDark) {
+            body.classList.add('dark-mode');
+            themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>'; // Sun icon for dark mode (click to go light)
+            localStorage.setItem('theme', 'dark');
         } else {
-            setTheme(false); // Default to light if no preference saved and system prefers light
+            body.classList.remove('dark-mode');
+            themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>'; // Moon icon for light mode (click to go dark)
+            localStorage.setItem('theme', 'light');
         }
+    }
 
-        // Toggle theme on button click
-        themeToggleBtn.addEventListener('click', () => {
-            setTheme(!body.classList.contains('dark-mode'));
-        });
+    // Check for saved theme preference or system preference on load
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        setTheme(savedTheme === 'dark');
+    } else if (prefersDarkMode.matches) {
+        setTheme(true); // Default to dark if system prefers it and no preference saved
+    } else {
+        setTheme(false); // Default to light if no preference saved and system prefers light
+    }
 
-        // Listen for system theme changes
-        prefersDarkMode.addEventListener('change', (e) => {
-            // Only react to system changes if no explicit preference is set
-            // or if you want system preference to always override
-            if (!localStorage.getItem('theme')) {
-                setTheme(e.matches);
-            }
-        });
-        document.addEventListener('DOMContentLoaded', () => {
+    // Toggle theme on button click
+    themeToggleBtn.addEventListener('click', () => {
+        setTheme(!body.classList.contains('dark-mode'));
+    });
+
+    // Listen for system theme changes
+    prefersDarkMode.addEventListener('change', (e) => {
+        // Only react to system changes if no explicit preference is set
+        if (!localStorage.getItem('theme')) {
+            setTheme(e.matches);
+        }
+    });
+
 
     // --- Skills Section Animation Script ---
     const animationPath = document.getElementById('animationPath');
@@ -175,152 +274,101 @@ const themeToggleBtn = document.getElementById('theme-toggle');
 
     // Check if essential elements exist
     if (!animationPath || !glowingOrb || skillBoxes.length === 0 || !skillsSection) {
-        console.error("Required elements for skills animation not found. Skipping animation.");
+        console.warn("Required elements for skills animation not found. Skipping animation.");
         // Ensure skill boxes are visible even without animation
         skillBoxes.forEach(box => {
             box.style.opacity = 1;
             box.style.transform = 'translateY(0)';
         });
-        return; // Exit if elements are missing
-    }
+        // return; // Don't return, as other parts of JS might still be needed
+    } else { // Only run animation logic if elements are found
+        const pathLength = animationPath.getTotalLength();
+        glowingOrb.style.opacity = 0; // Ensure orb is hidden initially
 
-    const pathLength = animationPath.getTotalLength();
-    glowingOrb.style.opacity = 0; // Ensure orb is hidden initially
+        // Define positions of skill boxes relative to the SVG's coordinate system (viewBox 0 0 1000 600)
+        const skillBoxTriggerPoints = [
+            { x: 150, y: 50, boxElement: skillBoxes[0] }, // Skill Box 1 (React.js)
+            { x: 100, y: 250, boxElement: skillBoxes[1] }, // Skill Box 2 (Node.js)
+            { x: 250, y: 300, boxElement: skillBoxes[2] }, // Skill Box 3 (MongoDB)
+            { x: 500, y: 300, boxElement: skillBoxes[3] }, // Skill Box 4 (AWS Services)
+            { x: 450, y: 450, boxElement: skillBoxes[4] }, // Skill Box 5 (CI/CD)
+            { x: 600, y: 450, boxElement: skillBoxes[5] }, // Skill Box 6 (Git & GitHub)
+            { x: 750, y: 300, boxElement: skillBoxes[6] }, // Skill Box 7 (Unit & Integration)
+            { x: 900, y: 450, boxElement: skillBoxes[7] }, // Skill Box 8 (UI/UX Principles)
+        ];
 
-    // Define positions of skill boxes relative to the SVG's coordinate system (viewBox 0 0 1000 600)
-    // These points should be roughly where the dot should trigger the skill box appearance.
-    // Fine-tune these (x, y) values based on your SVG path and skill box placement.
-    const skillBoxTriggerPoints = [
-        { x: 150, y: 50, boxElement: skillBoxes[0] }, // Skill Box 1 (React.js)
-        { x: 100, y: 250, boxElement: skillBoxes[1] }, // Skill Box 2 (Node.js)
-        { x: 250, y: 300, boxElement: skillBoxes[2] }, // Skill Box 3 (MongoDB)
-        { x: 500, y: 300, boxElement: skillBoxes[3] }, // Skill Box 4 (AWS Services)
-        { x: 450, y: 450, boxElement: skillBoxes[4] }, // Skill Box 5 (CI/CD)
-        { x: 600, y: 450, boxElement: skillBoxes[5] }, // Skill Box 6 (Git & GitHub)
-        { x: 750, y: 300, boxElement: skillBoxes[6] }, // Skill Box 7 (Unit & Integration)
-        { x: 900, y: 450, boxElement: skillBoxes[7] }, // Skill Box 8 (UI/UX Principles)
-    ];
+        const revealedBoxes = new Set();
+        let animationFrameId = null; // To store the requestAnimationFrame ID
 
-    const revealedBoxes = new Set();
-    let animationFrameId = null; // To store the requestAnimationFrame ID
+        function animateDotJourney(timestamp) {
+            if (!animateDotJourney.startTime) {
+                animateDotJourney.startTime = timestamp;
+            }
 
-    function animateDotJourney(timestamp) {
-        if (!animateDotJourney.startTime) {
-            animateDotJourney.startTime = timestamp;
+            const elapsed = timestamp - animateDotJourney.startTime;
+            const animationDuration = 15000; // Total duration for one full loop of the dot
+            const progress = (elapsed % animationDuration) / animationDuration; // Loop progress from 0 to 1
+
+            const point = animationPath.getPointAtLength(pathLength * progress);
+
+            // Position the glowing orb
+            glowingOrb.style.left = `${(point.x / 1000) * 100}%`; // Convert SVG x to percentage of wrapper width
+            glowingOrb.style.top = `${(point.y / 600) * 100}%`;   // Convert SVG y to percentage of wrapper height
+
+            // Make orb visible and start glow pulse animation
+            if (glowingOrb.style.opacity === '0') {
+                glowingOrb.style.opacity = 1;
+                glowingOrb.classList.add('active'); // Add class for glow pulse
+            }
+
+            // Reveal skill boxes
+            skillBoxTriggerPoints.forEach((trigger, index) => {
+                if (!revealedBoxes.has(index) && trigger.boxElement) { // Added check for boxElement
+                    const boxRect = trigger.boxElement.getBoundingClientRect();
+                    const wrapperRect = skillsSection.getBoundingClientRect(); // Use skillsSection as wrapper
+
+                    // Convert skill box's pixel coordinates to SVG coordinates
+                    const boxX = (boxRect.left + boxRect.width / 2 - wrapperRect.left) * (1000 / wrapperRect.width);
+                    const boxY = (boxRect.top + boxRect.height / 2 - wrapperRect.top) * (600 / wrapperRect.height);
+
+                    const distance = Math.sqrt(
+                        Math.pow(point.x - boxX, 2) + Math.pow(point.y - boxY, 2)
+                    );
+
+                    const revealThreshold = 100; // Increase threshold if boxes are large or path is far
+
+                    if (distance < revealThreshold) {
+                        trigger.boxElement.style.opacity = 1;
+                        trigger.boxElement.style.transform = 'translateY(0)';
+                        revealedBoxes.add(index);
+                    }
+                }
+            });
+
+            animationFrameId = requestAnimationFrame(animateDotJourney);
         }
 
-        const elapsed = timestamp - animateDotJourney.startTime;
-        const animationDuration = 15000; // Total duration for one full loop of the dot
-        const progress = (elapsed % animationDuration) / animationDuration; // Loop progress from 0 to 1
-
-        const point = animationPath.getPointAtLength(pathLength * progress);
-
-        // Position the glowing orb
-        glowingOrb.style.left = `${(point.x / 1000) * 100}%`; // Convert SVG x to percentage of wrapper width
-        glowingOrb.style.top = `${(point.y / 600) * 100}%`;   // Convert SVG y to percentage of wrapper height
-
-        // Make orb visible and start glow pulse animation
-        if (glowingOrb.style.opacity === '0') {
-            glowingOrb.style.opacity = 1;
-            glowingOrb.classList.add('active'); // Add class for glow pulse
-        }
-
-        // Reveal skill boxes
-        skillBoxTriggerPoints.forEach((trigger, index) => {
-            if (!revealedBoxes.has(index)) {
-                // Calculate actual pixel coordinates of the skill box element
-                const boxRect = trigger.boxElement.getBoundingClientRect();
-                const wrapperRect = trigger.boxElement.parentElement.getBoundingClientRect();
-
-                // Convert skill box's percentage-based left/top to SVG coordinates
-                // Assuming skill-box positions are relative to the wrapper which also contains the SVG
-                const boxX = (boxRect.left + boxRect.width / 2 - wrapperRect.left) * (1000 / wrapperRect.width);
-                const boxY = (boxRect.top + boxRect.height / 2 - wrapperRect.top) * (600 / wrapperRect.height);
-
-
-                const distance = Math.sqrt(
-                    Math.pow(point.x - boxX, 2) + Math.pow(point.y - boxY, 2)
-                );
-
-                const revealThreshold = 100; // Increase threshold if boxes are large or path is far
-
-                if (distance < revealThreshold) {
-                    trigger.boxElement.style.opacity = 1;
-                    trigger.boxElement.style.transform = 'translateY(0)';
-                    revealedBoxes.add(index);
+        // Use Intersection Observer to start/stop the animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Start animation if entering viewport
+                    if (!animationFrameId) { // Only start if not already running
+                        animateDotJourney.startTime = null; // Reset time for continuous loop
+                        animationFrameId = requestAnimationFrame(animateDotJourney);
+                    }
+                } else {
+                    // Stop animation if leaving viewport
+                    if (animationFrameId) {
+                        cancelAnimationFrame(animationFrameId);
+                        animationFrameId = null;
+                        glowingOrb.style.opacity = 0; // Hide orb when off-screen
+                        glowingOrb.classList.remove('active'); // Remove glow pulse
+                    }
                 }
-            }
-        });
+            });
+        }, { threshold: 0.3 }); // Trigger when 30% of the section is visible
 
-        animationFrameId = requestAnimationFrame(animateDotJourney);
+        observer.observe(skillsSection);
     }
-
-    // Use Intersection Observer to start/stop the animation
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // Start animation if entering viewport
-                if (!animationFrameId) { // Only start if not already running
-                    animateDotJourney.startTime = null; // Reset time for continuous loop
-                    animationFrameId = requestAnimationFrame(animateDotJourney);
-                }
-            } else {
-                // Stop animation if leaving viewport
-                if (animationFrameId) {
-                    cancelAnimationFrame(animationFrameId);
-                    animationFrameId = null;
-                    glowingOrb.style.opacity = 0; // Hide orb when off-screen
-                    glowingOrb.classList.remove('active'); // Remove glow pulse
-                }
-            }
-        });
-    }, { threshold: 0.3 }); // Trigger when 30% of the section is visible
-
-    observer.observe(skillsSection);
-
-
-    // Optional: About section "Read More" functionality
-    const readMoreBtn = document.getElementById('read-more-btn');
-    const moreContent = document.querySelector('.more-content');
-
-    if (readMoreBtn && moreContent) {
-        readMoreBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            if (moreContent.style.maxHeight) {
-                moreContent.style.maxHeight = null;
-                moreContent.style.opacity = 0;
-                moreContent.style.overflow = 'hidden';
-                this.textContent = 'Read more';
-            } else {
-                moreContent.style.maxHeight = moreContent.scrollHeight + 'px';
-                moreContent.style.opacity = 1;
-                moreContent.style.overflow = 'visible';
-                this.textContent = 'Read less';
-            }
-        });
-        // Set initial state for 'more-content' to be hidden
-        moreContent.style.maxHeight = '0';
-        moreContent.style.opacity = '0';
-        moreContent.style.overflow = 'hidden';
-        moreContent.style.transition = 'max-height 0.5s ease-out, opacity 0.5s ease-out';
-    }
-
-
-    // Optional: Smooth scroll for navigation links
-    document.querySelectorAll('nav a').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-
 });

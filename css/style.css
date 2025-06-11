@@ -1246,12 +1246,14 @@ body {
 
 /* Blogs Section (no change here, just ensure it has overflow: hidden) */
 /* Blogs Section (no change here unless you want to adjust padding/margin) */
+/* --- Blogs Section Styling --- */
 .blogs-section {
     padding: 100px 80px;
-    background-color: #1968e6;
+    /* Changed background-color to match your screenshot more closely if it's currently a dark blue */
+    background-color: #c9c3c3; /* Light background for the section */
     text-align: center;
     position: relative;
-    overflow: hidden; /* CRUCIAL: Hides the content that's not in view */
+    overflow: hidden; /* Keep this to ensure nothing spills out of the section */
 
     /* Optional: Subtle background gradient animation for the section itself */
     background-image: linear-gradient(135deg, #f5f5f5 0%, #f0f4f7 50%, #e6f0fa 100%);
@@ -1269,7 +1271,7 @@ body {
 }
 
 .blogs-section .section-title .accent-text {
-    color: #4a90e2;
+    color: #4a90e2; /* This is your primary accent color */
 }
 
 .blogs-section .section-subtitle {
@@ -1283,56 +1285,98 @@ body {
     margin-right: auto;
 }
 
-
-/* Updated: The container that acts as the viewport for the scrolling cards */
-.blogs-carousel-container {
-    max-width: 100%;
-    overflow: hidden; /* This crops the content outside its bounds */
-    position: relative; /* Needed for positioning masks if needed, though not strictly for this effect */
-    margin: 0 auto 60px auto;
-    padding-bottom: 20px; /* Space for card shadow */
-
-    /* ----- RE-ACTIVATING THE FADE EFFECT ----- */
-    /* This creates the gradient mask that makes cards fade in/out */
-    mask-image: linear-gradient(to right,
-        transparent 5%,    /* Start fully transparent at the very left edge */
-        rgb(8, 8, 8) 0%,         /* Become fully opaque at 10% from the left */
-        black 90%,         /* Remain fully opaque until 90% from the left */
-        transparent 0%   /* Fade back to transparent at the very right edge */
-    );
-    /* For Webkit browsers (Chrome, Safari, older Edge) */
-    -webkit-mask-image: linear-gradient(to right,
-        transparent 5%,
-        rgb(8, 8, 8) 0%,
-        black 90%,
-        transparent 0%
-    );
-    /* Ensure no animation is directly on this container, it's on .blogs-carousel-inner */
+/* NEW: Wrapper for the carousel and its arrows */
+.blogs-carousel-wrapper {
+    position: relative; /* Essential for positioning arrows absolutely within it */
+    max-width: 1300px; /* Limit the overall width of the carousel area */
+    margin: 0 auto 60px auto; /* Center it and add bottom margin */
+    display: flex; /* Use flex to align arrows and the main container */
+    align-items: center; /* Vertically align arrows */
+    padding: 0 60px; /* Space for the arrows to sit outside the main content area */
 }
 
-/* Updated: The inner container that holds the actual cards and is animated */
+/* MODIFIED: The container that acts as the viewport for the scrolling cards */
+.blogs-carousel-container {
+    flex-grow: 1; /* Allow it to take available space between arrows */
+    overflow-x: scroll; /* Enable horizontal scrolling */
+    -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
+    padding-bottom: 20px; /* Space for the scrollbar if it shows, or just for bottom shadow */
+    margin: 0 -10px; /* Adjust if inner padding is removed, or if you want cards to stick to edge */
+
+    /* REMOVE THE FADE EFFECT */
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+
+    /* Hide scrollbar */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+}
+/* For Webkit browsers (Chrome, Safari) */
+.blogs-carousel-container::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* MODIFIED: The inner container that holds the actual cards and is scrolled */
 .blogs-carousel-inner {
-    display: flex;
+    display: flex; /* Keep flex to arrange cards horizontally */
     flex-wrap: nowrap; /* Keep all cards in one line */
     width: max-content; /* Allow content to dictate its width */
     padding: 10px; /* Small padding for shadow visibility */
     gap: 40px; /* Space between cards */
 
-    /* Apply the animation to this inner container */
-    animation: scrollBlogsSeamless 10s linear infinite; /* Adjust duration for speed */
+    /* REMOVE THE ANIMATION */
+    animation: none !important;
+    /* Remove animation-play-state: paused; as animation is gone */
+
+    scroll-behavior: smooth; /* Essential for smooth scrolling with JavaScript */
 }
 
-/* Pause animation on hover */
-.blogs-carousel-inner:hover {
-    animation-play-state: paused;
+/* NEW: Styles for the navigation arrows */
+.blogs-carousel-wrapper .nav-arrow {
+    position: absolute; /* Position relative to .blogs-carousel-wrapper */
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(8, 8, 8, 0.5); /* Semi-transparent background */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50%; /* Make them circular */
+    cursor: pointer;
+    font-size: 1.5em;
+    z-index: 10; /* Ensure arrows are above cards */
+    transition: background-color 0.3s ease, opacity 0.3s ease; /* Added opacity for JS control */
+    display: flex; /* Use flex to center icon */
+    align-items: center;
+    justify-content: center;
+    width: 50px; /* Fixed width for circular button */
+    height: 50px; /* Fixed height for circular button */
+}
+
+.blogs-carousel-wrapper .nav-arrow:hover {
+    background-color: rgba(236, 232, 232, 0.8);
+}
+
+.blogs-carousel-wrapper .prev-arrow {
+    left: 0; /* Position at the far left of the wrapper */
+}
+
+.blogs-carousel-wrapper .next-arrow {
+    right: 0; /* Position at the far right of the wrapper */
+}
+
+/* Hide arrows by default if no JS is used, or if content fits */
+/* These will be controlled by JS if you implement arrow scrolling */
+.blogs-carousel-wrapper .nav-arrow.hidden {
+    display: none;
 }
 
 
-/* Individual blog card styles (keep these, just confirm fixed width and flex-shrink) */
+/* Individual blog card styles (kept largely as you had, ensuring consistency) */
 .blog-post-card {
     flex-shrink: 0; /* Important: Prevent cards from shrinking */
-    width: 380px; /* FIXED WIDTH IS CRUCIAL FOR CONSISTENT MEASUREMENT */
-    background-color: #a0aeb8;
+    width: 380px; /* FIXED WIDTH IS CRUCIAL FOR CONSISTENT HORIZONTAL SCROLLING */
+    background-color: #a0aeb8; /* Your original color */
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
@@ -1368,12 +1412,11 @@ body {
     font-family: 'Poppins', sans-serif;
     font-size: 0.8em;
     font-weight: 600;
-    padding: 6px 5px;
+    padding: 6px 12px;
     border-radius: 20px;
     margin-bottom: 15px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    
 }
 
 .blog-post-content h3 {
@@ -1407,7 +1450,7 @@ body {
 }
 
 .read-more-link:hover {
-    color: #FF6B6B;
+    color: #b54a4a;
 }
 
 .read-more-link i {
@@ -1447,7 +1490,62 @@ body {
     box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
 }
 
-/* Responsive Adjustments for Blogs Section (keep these) */
+/* Define CSS Variables (ensure these are at the :root or accessible scope) */
+:root {
+    --path-stroke-color: #fcf8f8; /* Light blue/teal for the main path */
+    --orb-glow-color: transparent; /* Bright blue for the orb's core glow */
+    /* Add other color variables here if not already defined globally in your main CSS */
+    --white-bg: #a98b8b;
+    --subtle-shadow-color: rgba(0, 0, 0, 0.1);
+    --accent-color: #4a90e2; /* Assuming this is your accent color */
+    --primary-text-color: #2c3e50;
+    --secondary-text-color: #666;
+}
+
+/* --- Dark Mode Variables and Overrides --- */
+body.dark-mode {
+    --white-bg: #576e85;
+    --subtle-shadow-color: rgba(244, 22, 22, 0.4);
+    --primary-text-color: #eee;
+    --secondary-text-color: #bbb;
+    --accent-color: #90caf9;
+    background-color: #1a1a1a;
+}
+
+.dark-mode .blogs-section {
+    background-image: linear-gradient(135deg, #0f0e0e 0%, #202020 50%, #2a2a2a 100%);
+}
+
+.dark-mode .blogs-section .section-title,
+.dark-mode .blog-post-content h3 {
+    color: var(--primary-text-color);
+}
+
+.dark-mode .blogs-section .section-subtitle,
+.dark-mode .blog-post-content p {
+    color: var(--secondary-text-color);
+}
+
+.dark-mode .blog-post-card {
+    background-color: var(--white-bg);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .blog-category {
+    background-color: rgba(74, 144, 226, 0.2);
+    color: var(--accent-color);
+}
+
+.dark-mode .read-more-link {
+    color: var(--secondary-text-color);
+}
+
+.dark-mode .read-more-link:hover {
+    color: #FF6B6B;
+}
+
+
+/* Responsive Adjustments for Blogs Section */
 @media (max-width: 1200px) {
     .blogs-section {
         padding: 80px 60px;
@@ -1459,7 +1557,10 @@ body {
         gap: 30px;
     }
     .blog-post-card {
-        width: 350px;
+        width: 350px; /* Adjust fixed width */
+    }
+    .blogs-carousel-wrapper {
+        padding: 0 50px; /* Adjust padding for arrows */
     }
 }
 
@@ -1477,7 +1578,10 @@ body {
         gap: 20px;
     }
     .blog-post-card {
-        width: 320px;
+        width: 320px; /* Adjust fixed width */
+    }
+    .blogs-carousel-wrapper {
+        padding: 0 40px;
     }
 }
 
@@ -1487,21 +1591,24 @@ body {
     }
     .blogs-section .section-title {
         font-size: 2em;
-        text-align: center;
     }
     .blogs-section .section-subtitle {
         font-size: 1em;
-        text-align: center;
         margin-bottom: 30px;
     }
-    .blogs-carousel-container {
-        margin-bottom: 30px;
+    .blogs-carousel-wrapper {
+        padding: 0 20px; /* Further reduce padding */
     }
     .blogs-carousel-inner {
         gap: 15px;
     }
     .blog-post-card {
-        width: 280px;
+        width: 280px; /* Adjust fixed width */
+    }
+    .blogs-carousel-wrapper .nav-arrow {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2em;
     }
 }
 
@@ -1512,8 +1619,15 @@ body {
     .blogs-section .section-subtitle {
         font-size: 0.9em;
     }
+    .blogs-carousel-wrapper {
+        padding: 0 10px; /* Minimal padding */
+    }
+    .blogs-carousel-inner {
+        gap: 10px;
+        padding: 0; /* Remove inner padding to make cards fill edge to edge */
+    }
     .blog-post-card {
-        width: 250px;
+        width: 250px; /* Adjust fixed width for smaller screens */
     }
     .blog-post-content {
         padding: 20px;
@@ -1528,72 +1642,8 @@ body {
     .read-more-link {
         font-size: 0.9em;
     }
-}
-/* --- Blogs Section Styling --- */
-.blogs-carousel-container {
- overflow-x: auto; /* Enable horizontal scrolling */
- -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
- padding-bottom: 20px; /* Space for the scrollbar */
- margin-top: 30px;
-}
-
-.blogs-carousel-inner {
- display: flex; /* Arrange cards horizontally */
- gap: 30px; /* Space between cards */
- padding: 0 30px; /* Add some padding on the sides */
-}
-
-.blog-card {
- background-color: var(--white-bg); /* Card background */
- border-radius: 10px;
- box-shadow: 0 4px 15px var(--subtle-shadow-color); /* Card shadow */
- min-width: 300px; /* Minimum width of each card */
- max-width: 350px; /* Maximum width of each card */
- flex: 0 0 auto; /* Don't grow or shrink excessively */
- display: flex;
- flex-direction: column;
- padding: 20px;
- transition: background-color 0.4s ease, box-shadow 0.4s ease;
-}
-
-.blog-card img {
- width: 100%;
- height: auto;
- border-radius: 8px;
- margin-bottom: 15px;
- display: block;
-}
-
-.blog-category {
- font-family: 'Poppins', sans-serif;
- font-size: 0.85em;
- color: var(--accent-color); /* Category text color */
- margin-bottom: 8px;
- text-transform: uppercase;
- display: inline-block;
- transition: color 0.4s ease;
-}
-
-.blog-card h3 {
- font-family: 'Montserrat', sans-serif;
- font-size: 1.5em;
- color: var(--primary-text-color); /* Title color */
- margin-bottom: 10px;
- line-height: 1.2;
- transition: color 0.4s ease;
-}
-
-.blog-card p {
- font-size: 0.95em;
- color: var(--secondary-text-color); /* Description color */
- line-height: 1.6;
- margin-bottom: 15px;
- transition: color 0.4s ease;
-}
-/* Define CSS Variables (ensure these are at the :root or accessible scope) */
-:root {
-    --path-stroke-color: #1e1717; /* Light blue/teal for the main path */
-    --orb-glow-color: transparent; /* Bright blue for the orb's core glow */
+    /* Arrows might be too small or intrusive on very small screens, consider hiding them */
+    /* .blogs-carousel-wrapper .nav-arrow { display: none; } */
 }
 
 /* --- Skills Section Styling --- */
