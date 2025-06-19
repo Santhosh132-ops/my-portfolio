@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Tech Insights - All Blogs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Common Base Styles --- */
+        :root {
+            --primary-color: #007bff; /* Blue */
+            --secondary-color: #6c757d; /* Gray for meta text */
+            --text-color-light: #333;
+            --text-color-dark: #f0f0f0;
+            --background-light: #f8f9fa;
+            --background-dark: #2c3e50; /* Dark blue/gray background */
+            --card-background-light: #ffffff;
+            --card-background-dark: #34495e; /* Darker blue/gray for cards */
+            --border-color-light: #dee2e6;
+            --border-color-dark: #4a6279;
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --shadow-dark: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Base styles for dark mode - applies when .dark-mode class is on body */
+        body.dark-mode {
+            background-color: var(--background-dark);
+            color: var(--text-color-dark);
+        }
+
+        body.dark-mode h1,
+        body.dark-mode h2,
+        body.dark-mode h3,
+        body.dark-mode h4,
+        body.dark-mode h5,
+        body.dark-mode h6 {
+            color: var(--text-color-dark);
+        }
+
+        body.dark-mode .blog-top-nav,
+        body.dark-mode .blogs-hero-section,
+        body.dark-mode .blog-card,
+        body.dark-mode .blog-page-bottom-footer {
+            background-color: var(--card-background-dark);
+            border-color: var(--border-color-dark);
+            box-shadow: 0 2px 4px var(--shadow-dark); /* Adjust shadow for dark mode */
+        }
+
+        body.dark-mode .blog-card:hover {
+            box-shadow: 0 8px 16px var(--shadow-dark);
+        }
+
+        body.dark-mode .blog-card-image-wrapper {
+            border-bottom-color: var(--border-color-dark);
+        }
+
+        body.dark-mode .theme-toggle-btn {
+            color: var(--text-color-dark);
+        }
+        body.dark-mode .theme-toggle-btn:hover {
+            color: var(--primary-color);
+        }
+        body.dark-mode .blog-brand-logo .logo-text {
+            color: var(--primary-color); /* Primary color stays same */
+        }
+        body.dark-mode a {
+             color: var(--primary-color); /* Links stay primary color */
+        }
+        body.dark-mode .blog-card-excerpt,
+        body.dark-mode .blog-card-meta,
+        body.dark-mode .blog-page-bottom-footer p {
+            color: var(--secondary-color); /* Secondary color for lighter text */
+        }
+
+
+        /* General Body Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-light);
+            color: var(--text-color-light);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-color-light);
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- Navigation Bar --- */
+        .blog-top-nav {
+            background-color: var(--card-background-light);
+            border-bottom: 1px solid var(--border-color-light);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px var(--shadow-light);
+            transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .blog-nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .blog-brand-logo .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+        }
+
+        .theme-toggle-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color-light);
+            transition: color 0.3s;
+            padding: 0.5rem;
+        }
+
+        .theme-toggle-btn:hover {
+            color: var(--primary-color);
+        }
+
+        /* --- Page Wrapper & Hero Section --- */
+        .page-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .blogs-hero-section {
+            text-align: center;
+            padding: 60px 20px;
+            background-color: var(--card-background-light);
+            border-radius: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 8px var(--shadow-light);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .blogs-hero-section h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .blogs-hero-section p {
+            font-size: 1.2em;
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--text-color-light);
+        }
+
+        /* --- Blogs Grid Container & Cards --- */
+        .blogs-grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .blog-card {
+            background-color: var(--card-background-light);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px var(--shadow-light);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s;
+            display: flex;
+            flex-direction: column;
+            color: inherit; /* Inherit text color from body, adjusted by dark mode */
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px var(--shadow-light);
+            text-decoration: none; /* Remove underline on hover */
+        }
+
+        .blog-card-image-wrapper {
+            width: 100%;
+            height: 200px; /* Fixed height for consistent card appearance */
+            overflow: hidden;
+            border-bottom: 1px solid var(--border-color-light);
+            transition: border-color 0.3s;
+        }
+
+        .blog-card-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures image covers the area without distortion */
+            transition: transform 0.3s ease;
+        }
+
+        .blog-card:hover .blog-card-image-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .blog-card-content {
+            padding: 20px;
+            flex-grow: 1; /* Allows content to expand and push footer down */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-category-tag {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .blog-card h2 {
+            font-size: 1.6em;
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: var(--text-color-light); /* Ensure title color adjusts with dark mode */
+        }
+
+        .blog-card p.blog-card-excerpt {
+            font-size: 0.95em;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            flex-grow: 1; /* Allow excerpt to take available space */
+        }
+
+        .blog-card p.blog-card-meta {
+            font-size: 0.8em;
+            color: var(--secondary-color);
+            margin-top: auto; /* Pushes meta info to the bottom */
+        }
+
+        /* --- Footer --- */
+        .blog-page-bottom-footer {
+            background-color: var(--card-background-light);
+            border-top: 1px solid var(--border-color-light);
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--secondary-color);
+            margin-top: 60px;
+            box-shadow: 0 -2px 4px var(--shadow-light);
+            transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .blog-footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .blog-footer-content p {
+            margin: 0;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            .blog-nav-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .blogs-hero-section h1 {
+                font-size: 2.5em;
+            }
+
+            .blogs-hero-section p {
+                font-size: 1em;
+            }
+
+            .blogs-grid-container {
+                grid-template-columns: 1fr; /* Single column on small screens */
+            }
+
+            .blog-card-image-wrapper {
+                height: 180px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .blog-top-nav {
+                padding: 0.8rem 0;
+            }
+            .blog-brand-logo .logo-text {
+                font-size: 1.5rem;
+            }
+            .theme-toggle-btn {
+                font-size: 1.3rem;
+            }
+            .blogs-hero-section {
+                padding: 40px 15px;
+            }
+            .blogs-hero-section h1 {
+                font-size: 2em;
+            }
+            .blog-card-content {
+                padding: 15px;
+            }
+            .blog-card h2 {
+                font-size: 1.4em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="blog-top-nav">
+        <div class="blog-nav-container">
+            <a href="index.html" class="blog-brand-logo">
+                <span class="logo-text">My Tech Insights</span>
+            </a>
+
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="page-wrapper">
+        <header class="blogs-hero-section">
+            <div class="header-content-wrapper">
+                <h1>My Blog</h1>
+                <p>Dive into a collection of articles and insights on cloud computing, digital marketing, web development, and more.</p>
+            </div>
+        </header>
+
+        <main class="blogs-grid-container">
+            <a href="blog-aws-foundations.html" class="blog-card">
+                <div class="blog-card-image-wrapper">
+                    <img src="images/aws.jpg" alt="AWS Cloud Foundations Image">
+                </div>
+                <div class="blog-card-content">
+                    <span class="blog-category-tag">Cloud Computing</span>
+                    <h2>AWS Cloud Foundations: Core Services Demystified</h2>
+                    <p class="blog-card-excerpt">Understanding the building blocks of AWS is the first step to unlocking the full potential of cloud computing. Dive into EC2, S3, VPC, and IAM.</p>
+                    <p class="blog-card-meta">by Santhosh Kunam · June 01, 2025</p>
+                </div>
+            </a>
+
+            <a href="blog-marketing-funnels.html" class="blog-card">
+                <div class="blog-card-image-wrapper">
+                    <img src="images/marketing-funnel.jpg" alt="Digital Marketing Funnel Image">
+                </div>
+                <div class="blog-card-content">
+                    <span class="blog-category-tag">Digital Marketing</span>
+                    <h2>Funnels in Digital Marketing: Guiding Your Customers to Conversion</h2>
+                    <p class="blog-card-excerpt">A well-designed marketing funnel isn't just a path; it's a strategic journey that transforms curious visitors into loyal customers.</p>
+                    <p class="blog-card-meta">by Santhosh Kunam · June 19, 2025</p>
+                </div>
+            </a>
+
+            <a href="blog-digital-marketing-demystified.html" class="blog-card">
+                <div class="blog-card-image-wrapper">
+                    <img src="images/digital-marketing-journey.jpg" alt="Digital Marketing Journey Image">
+                </div>
+                <div class="blog-card-content">
+                    <span class="blog-category-tag">Digital Marketing</span>
+                    <h2>Digital Marketing Demystified: Transforming Clicks into Customers</h2>
+                    <p class="blog-card-excerpt">An essential guide to navigating the dynamic world of digital marketing, turning initial clicks into loyal customers and business growth.</p>
+                    <p class="blog-card-meta">by Santhosh Kunam · July 03, 2025</p>
+                </div>
+            </a>
+
+            <a href="blog-flexbox.html" class="blog-card">
+                <div class="blog-card-image-wrapper">
+                    <img src="images/flexbox.jpg" alt="Flexbox Layout Image">
+                </div>
+                <div class="blog-card-content">
+                    <span class="blog-category-tag">Web Development</span>
+                    <h2>Mastering Responsive Design with Flexbox</h2>
+                    <p class="blog-card-excerpt">Unlock the power of CSS Flexbox to create flexible and dynamic layouts that adapt seamlessly to any screen size.</p>
+                    <p class="blog-card-meta">by Santhosh Kunam · May 15, 2025</p>
+                </div>
+            </a>
+
+            <a href="blog-tensorflowjs.html" class="blog-card">
+                <div class="blog-card-image-wrapper">
+                    <img src="images/tensorflowjs.jpg" alt="TensorFlow.js Code Image">
+                </div>
+                <div class="blog-card-content">
+                    <span class="blog-category-tag">AI/ML</span>
+                    <h2>Getting Started with TensorFlow.js</h2>
+                    <p class="blog-card-excerpt">Bring machine learning directly to your browser with TensorFlow.js. Explore how to build and train models in JavaScript.</p>
+                    <p class="blog-card-meta">by Santhosh Kunam · April 22, 2025</p>
+                </div>
+            </a>
+
+            </main>
+    </div>
+
+    <footer class="blog-page-bottom-footer">
+        <div class="blog-footer-content">
+            <p>&copy; 2025 My Tech Insights. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Dark Mode JavaScript ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+        const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
+
+        // Function to set the theme
+        function setTheme(isDark) {
+            if (isDark) {
+                body.classList.add('dark-mode');
+                themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark-mode');
+                themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Check for saved theme preference or system preference on load
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme === 'dark');
+        } else if (prefersDarkMode.matches) {
+            setTheme(true);
+        } else {
+            setTheme(false);
+        }
+
+        // Toggle theme on button click
+        themeToggleBtn.addEventListener('click', () => {
+            setTheme(!body.classList.contains('dark-mode'));
+        });
+
+        // Listen for system theme changes
+        prefersDarkMode.addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                setTheme(e.matches);
+            }
+        });
+    </script>
+</body>
+</html>
