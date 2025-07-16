@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deployment Pipeline</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #1c2526;
+            --text-color: #e0e0e0;
+            --accent: #b0b0b0;
+            --highlight: #2e3839;
+            --secondary-accent: #ffffff;
+            --gradient: linear-gradient(135deg, #2e3839, #1c2526);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gradient);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            transition: background 0.5s ease;
+        }
+        body:hover {
+            background: linear-gradient(135deg, #1c2526, #2e3839);
+        }
+        nav {
+            background: var(--highlight);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+            border-bottom: 2px solid var(--accent);
+        }
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            list-style: none;
+            padding: 0;
+        }
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            padding: 12px 25px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            transition: all 0.4s ease, transform 0.3s ease;
+        }
+        nav a:hover, nav a:focus {
+            background: var(--accent);
+            color: var(--secondary-accent);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(176, 176, 176, 0.6);
+        }
+        nav a.active {
+            background: var(--accent);
+            color: var(--secondary-accent);
+            box-shadow: 0 6px 20px rgba(176, 176, 176, 0.6);
+        }
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 25px;
+        }
+        section {
+            margin-bottom: 50px;
+            padding: 25px;
+            border-radius: 20px;
+            background: var(--highlight);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.8s ease-out;
+            overflow: hidden;
+        }
+        h2 {
+            color: var(--secondary-accent);
+            margin-bottom: 20px;
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+        }
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        h2:hover::after {
+            width: 100px;
+        }
+        .step-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-left: 5px solid var(--accent);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .step-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(176, 176, 176, 0.2);
+            transition: left 0.6s ease;
+        }
+        .step-card:hover::before {
+            left: 0;
+        }
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(176, 176, 176, 0.4);
+        }
+        .step-number {
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 18px;
+            margin-right: 10px;
+        }
+        .project-img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 15px 0;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .project-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+        }
+        .code {
+            background: #0e1213;
+            border-left: 5px solid var(--accent);
+            padding: 15px;
+            margin: 15px 0;
+            font-family: monospace;
+            color: var(--text-color);
+            border-radius: 10px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .code:hover {
+            transform: translateX(10px);
+            box-shadow: 0 0 20px rgba(176, 176, 176, 0.4);
+        }
+        .diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+            position: relative;
+        }
+        .diagram-box {
+            background: #3d4849;
+            padding: 15px 20px;
+            border: 3px solid var(--accent);
+            border-radius: 15px;
+            font-weight: 600;
+            text-align: center;
+            min-width: 140px;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .diagram-box::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            transition: transform 0.6s ease;
+            z-index: 0;
+        }
+        .diagram-box:hover::after {
+            transform: scale(1.5);
+        }
+        .diagram-box span {
+            font-size: 0.8rem;
+            color: #b0b0b0;
+            display: block;
+            margin-top: 6px;
+            position: relative;
+            z-index: 1;
+        }
+        .diagram-box:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(176, 176, 176, 0.5);
+        }
+        .arrow {
+            font-size: 18px;
+            color: var(--accent);
+            margin: 0 10px;
+            transition: color 0.4s ease;
+        }
+        .diagram-box:hover + .arrow {
+            color: var(--secondary-accent);
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @media (max-width: 768px) {
+            nav ul { gap: 10px; flex-wrap: wrap; }
+            nav a { padding: 10px 20px; font-size: 14px; }
+            .container { padding: 15px; }
+            .diagram { flex-direction: column; }
+            .arrow { transform: rotate(90deg); }
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const boxes = document.querySelectorAll('.diagram-box');
+            let currentIndex = 0;
+
+            // Show initial box
+            boxes[currentIndex].classList.add('active');
+
+            // Interactive hover and click
+            boxes.forEach((box, index) => {
+                box.addEventListener('click', () => {
+                    boxes.forEach(b => b.classList.remove('active'));
+                    box.classList.add('active');
+                    currentIndex = index;
+                });
+                box.addEventListener('mouseenter', () => {
+                    box.style.zIndex = 10;
+                });
+                box.addEventListener('mouseleave', () => {
+                    box.style.zIndex = 'auto';
+                });
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' && currentIndex < boxes.length - 1) {
+                    boxes[currentIndex].classList.remove('active');
+                    currentIndex++;
+                    boxes[currentIndex].classList.add('active');
+                } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
+                    boxes[currentIndex].classList.remove('active');
+                    currentIndex--;
+                    boxes[currentIndex].classList.add('active');
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#design">Design</a></li>
+            <li><a href="#implementation">Implementation</a></li>
+            <li><a href="#challenges">Challenges</a></li>
+            <li><a href="#future-plan">Future</a></li>
+            <li><a href="#architecture">Architecture</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section id="design">
+            <h2>🎨 Design Process</h2>
+            <div class="step-card">
+                <p><span class="step-number">Step 1:</span> Planning the Workflow</p>
+                <p>Designed a manual deployment pipeline to bypass GitHub, leveraging VS Code CLI for full control over static site deployment to AWS Amplify.</p>
+            </div>
+            <div class="step-card">
+                <p><span class="step-number">Step 2:</span> File Structure Setup</p>
+                <p>Structured the project with HTML, CSS, and JavaScript files optimized for Amplify hosting, ensuring a lightweight static front-end.</p>
+                <div class="code">
+portfolio/
+├── index.html
+├── css/
+│   └── style.css
+├── js/
+│   └── script.js
+                </div>
+            </div>
+        </section>
+
+        <section id="implementation">
+            <h2>💻 Technical Implementation</h2>
+            <div class="step-card">
+                <p><span class="step-number">Step 1:</span> Environment Setup</p>
+                <p>Installed Node.js (v18.x or later) and Amplify CLI globally using <code>npm install -g @aws-amplify/cli</code> to establish the development environment.</p>
+                <div class="code">npm install -g @aws-amplify/cli</div>
+            </div>
+            <div class="step-card">
+                <p><span class="step-number">Step 2:</span> IAM User Setup</p>
+                <p>Created an IAM user with an attached policy granting <code>AdministratorAccess</code> (ARN: arn:aws:iam::aws:policy/AdministratorAccess) and generated access keys for CLI authentication.</p>
+            </div>
+            <div class="step-card">
+                <p><span class="step-number">Step 3:</span> Amplify Initialization</p>
+                <p>Configured Amplify CLI with <code>amplify configure</code>, linking to the AWS account, and initialized the project with <code>amplify init</code> using no framework and empty build settings.</p>
+                <div class="code">amplify configure</div>
+                <div class="code">amplify init</div>
+            </div>
+            <div class="step-card">
+                <p><span class="step-number">Step 4:</span> Hosting Setup</p>
+                <p>Added manual hosting with <code>amplify hosting add</code>, setting the root directory to <code>.</code> and configuring Amplify Console for static site deployment.</p>
+                <div class="code">amplify hosting add</div>
+            </div>
+            <div class="step-card">
+                <p><span class="step-number">Step 5:</span> Custom Files</p>
+                <p>Created <code>.amplifyignore</code> to exclude <code>node_modules</code>, <code>.vscode</code>, and logs, and a custom <code>amplify-build.bat</code> script for automation with cache invalidation.</p>
+                <div class="code">
+// .amplifyignore
+node_modules
+.vscode
+*.log
+amplify-build.bat
+                </div>
+                <div class="code">
+// amplify-build.bat
+@echo off
+amplify publish --invalidate
+pause
+                </div>
+                <div class="code">
+@echo off
+echo Building static site...
+REM Clean dist folder
+IF EXIST dist (
+    rmdir /s /q dist
+)mkdir dist
+REM Copy all root HTML files
+for %%f in (*.html) do (
+    xcopy "%%f" "dist\" /Y >nul
+)REM Copy css/ if exists
+IF EXIST css (
+    xcopy css dist\css /E /I /Y >nul
+)REM Copy js/ if exists
+IF EXIST js (
+    xcopy js dist\js /E /I /Y >nul
+)REM Copy images/ if exists
+IF EXIST images (
+    xcopy images dist\images /E /I /Y >nul
+)echo ✅ Build complete.
+
+                </div>
+            </div>
+            <div class="step-card">
+                <p><span class="step-number">Step 6:</span> Deployment</p>
+                <p>Deployed the site using <code>amplify publish</code>, uploading static assets to an S3 bucket with versioning enabled and distributing via CloudFront with HTTPS enforcement.</p>
+                <div class="code">amplify publish</div>
+            </div>
+        </section>
+
+        <section id="challenges">
+            <h2>🛠 Challenges & Solutions</h2>
+            <div class="step-card">
+                <p><span class="step-number">Challenge 1:</span> 404 Errors</p>
+                <p>Solution: Corrected the root directory to <code>.</code> in Amplify Console settings and verified S3 bucket index document (<code>index.html</code>).</p>
+            </div>
+            <div class="step-card">
+                <p><span class="step-number">Challenge 2:</span> Missing Build Commands</p>
+                <p>Solution: Explicitly set build commands to empty (<code>{}</code>) in <code>amplify.yml</code> to avoid default build triggers.</p>
+            </div>
+            <div class="step-card">
+                <p><span class="step-number">Challenge 3:</span> Cache Issues</p>
+                <p>Solution: Implemented <code>amplify publish --invalidate</code> to force CloudFront cache invalidation and updated S3 object metadata.</p>
+            </div>
+        </section>
+
+        <section id="future-plan">
+            <h2>🌟 Future Plan</h2>
+            <div class="step-card">
+                <p><span class="step-number">Plan 1:</span> Live Deployment Triggers</p>
+                <p>Integrate <code>amplify mock hosting --watch</code> to enable real-time deployment on file changes, reducing manual publish cycles.</p>
+            </div>
+            <div class="step-card">
+                <p><span class="step-number">Plan 2:</span> Custom Domains & Caching</p>
+                <p>Configure a custom domain via Route 53 and set up automatic caching policies in CloudFront using Lambda@Edge for dynamic content optimization.</p>
+            </div>
+        </section>
+
+        <section id="architecture">
+            <h2>🧠 Project Architecture</h2>
+            <div class="diagram">
+                <div class="diagram-box">VS Code<span>Local Dev</span></div>
+                <span class="arrow">➡️</span>
+                <div class="diagram-box">Node.js + Amplify CLI<span>Build & Config</span></div>
+                <span class="arrow">➡️</span>
+                <div class="diagram-box">IAM<span>Authentication</span></div>
+                <span class="arrow">➡️</span>
+                <div class="diagram-box">S3 Bucket<span>Static Storage</span></div>
+                <span class="arrow">➡️</span>
+                <div class="diagram-box">CloudFront<span>CDN & HTTPS</span></div>
+                <span class="arrow">➡️</span>
+                <div class="diagram-box">Live URL<span>Custom Domain</span></div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        © 2025 SanthoshP. All rights reserved. Last updated: 05:18 PM IST, Tuesday, June 24, 2025.
+    </footer>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "santhoshp": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-myportfolio-santhoshp-20637-authRole",
+      "UnauthRoleArn": "arn:aws:iam::741448934860:role/amplify-myportfolio-santhoshp-20637-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::741448934860:role/amplify-myportfolio-santhoshp-20637-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-myportfolio-santhoshp-20637-deployment",
+      "UnauthRoleName": "amplify-myportfolio-santhoshp-20637-unauthRole",
+      "StackName": "amplify-myportfolio-santhoshp-20637",
+      "StackId": "arn:aws:cloudformation:ap-south-1:741448934860:stack/amplify-myportfolio-santhoshp-20637/b3585860-50cb-11f0-adab-0646a8c92919",
+      "AmplifyAppId": "d4v164dafoi93"
+    },
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d4v164dafoi93",
+          "type": "manual"
+        }
+      }
+    }
+  }
+}
